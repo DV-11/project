@@ -10,11 +10,13 @@
   - Scherm, GET, POST
 - Homepage
   - Scherm met de drie categorieën, GET
-- Categorie 1
+- Categorie 1 Low fat
   - Scherm met recepten en filteroptie, GET
-- Categorie 2
+- Categorie 2 Low Carb
   - Scherm met recepten en filteroptie, GET
-- Categorie 3
+- Categorie 3 High Proteïn
+  - Scherm met recepten en filteroptie, GET
+- Categorie 3 Balanced
   - Scherm met recepten en filteroptie, GET
 - Filter
   - Geen eigen scherm, op scherm van de betreffende categorie, GET, POST
