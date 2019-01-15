@@ -29,7 +29,7 @@
 
 ### Views
 
-
+[Schetsen](https://docs.google.com/presentation/d/1vd6hnFBhVhjwufJE3FLvwI_Mhs6Ra2_f7SeBGiFoqi8/edit?usp=sharing)
 
 
 ### Helpers
