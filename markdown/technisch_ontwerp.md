@@ -9,7 +9,7 @@
 - Register
   - Scherm, GET, POST
 - Homepage
-  - Scherm met de drie categorieën, GET
+  - Scherm met de vier categorieën, GET
 - Categorie 1 Low fat
   - Scherm met recepten en filteroptie, GET
 - Categorie 2 Low Carb
@@ -44,6 +44,6 @@
 
 
 ### Plugins
-- [Bootsrtap](https://getbootstrap.com/)
+- [Bootstrap](https://getbootstrap.com/)
 
 
