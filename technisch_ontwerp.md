@@ -16,7 +16,7 @@
   - Scherm met recepten en filteroptie, GET
 - Categorie 3 High Proteïn
   - Scherm met recepten en filteroptie, GET
-- Categorie 3 Balanced
+- Categorie 4 Balanced
   - Scherm met recepten en filteroptie, GET
 - Filter
   - Geen eigen scherm, op scherm van de betreffende categorie, GET, POST
