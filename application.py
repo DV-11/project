@@ -25,14 +25,16 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 @app.route("/")
 def homepage():
     """Homepage of site"""
-    if request.methode == "GET":
-        return render_template("homepage.html")
+    if request.method == "GET":
+
+        return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -64,7 +66,8 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
-        return redirect(url_for("index"))
+        # return redirect(url_for("index"))
+        return render_template("index.html")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
