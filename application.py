@@ -28,13 +28,11 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
-@app.route("/homepage", methods=["GET", "POST"])
+@app.route("/")
 def homepage():
     """"homepage of site""""
     if request.methode == "GET":
         return render_template("homepage.html")
-
-
 
 
 @app.route("/login", methods=["GET", "POST"])
