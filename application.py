@@ -30,7 +30,7 @@ db = SQL("sqlite:///finance.db")
 
 @app.route("/")
 def homepage():
-    """"homepage of site""""
+    """Homepage of site"""
     if request.methode == "GET":
         return render_template("homepage.html")
 
