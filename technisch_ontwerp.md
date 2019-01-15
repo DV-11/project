@@ -31,7 +31,7 @@
 
 ### Views
 
-[Schetsen](https://docs.google.com/presentation/d/1vd6hnFBhVhjwufJE3FLvwI_Mhs6Ra2_f7SeBGiFoqi8/edit?usp=sharing)
+[Schetsen](https://docs.google.com/presentation/d/1fVsH-EsZZ9C-X2kP4JCAMMhQKwtrBTdFnS-zybqx5Zs/edit#slide=id.p2)
 
 
 ### Helpers
