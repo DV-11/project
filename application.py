@@ -139,9 +139,8 @@ def balanced():
         # als er geen image of label aanwezig is
         if len(info) > 0:
             verzameling.append(info[0])
-    pprint.pprint(verzameling)
 
-    return render_template("balanced.html")
+    return render_template("balanced.html", verzameling=verzameling)
 
 @app.route("/lowCarb")
 def lowCarb():
