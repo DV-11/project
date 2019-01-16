@@ -50,13 +50,9 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        # ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username")
-
-        # ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password")
+        # ensure username and password was submitted
+        if not request.form.get("username") or not request.form.get("password"):
+            return apology("must provide username/password")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
@@ -97,9 +93,9 @@ def register():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        # ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username")
+        # ensure username and password was submitted
+        if not request.form.get("username") or not request.form.get("password") or not request.form.get("email"):
+            return apology("must provide username/password/email")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
@@ -108,12 +104,15 @@ def register():
         if len(rows) == 1:
             return apology("username already exists")
 
-        # ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password")
+        # query databasse for email
+        rows = db.execute("SELECT * FROM users WHERE email = :email", email=request.form.get("email"))
+
+        # ensure email doesn't already exist
+        if len(rows) == 1:
+            return apology("There is already an account with this email")
 
         # ensure password is the same as passwordcheck
-        elif request.form.get("password") != request.form.get("confirmation"):
+        if request.form.get("password") != request.form.get("confirmation"):
             return apology("passwords are not matching")
 
         # encrypt password
@@ -122,7 +121,8 @@ def register():
         hash = pwd_context.hash(request.form.get("password"))
 
         # insert user into users
-        db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash=hash)
+        db.execute("INSERT INTO users (username, email, hash) VALUES(:username, :email, :hash)",
+                    username=request.form.get("username"), email=request,form.get("email") hash=hash)
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # remember which user has logged in
