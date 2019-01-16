@@ -3,6 +3,7 @@ import urllib.request
 
 from flask import redirect, render_template, request, session
 from functools import wraps
+from cs50 import SQL
 
 
 def apology(message, code=400):
@@ -112,3 +113,16 @@ def lookup(symbol):
 def usd(value):
     """Formats value as USD."""
     return f"${value:,.2f}"
+
+# configure CS50 Library to use SQLite database
+db = SQL("sqlite:///finance.db")
+
+def voorvertoning(categorie):
+    uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel="catogorie")
+    verzameling = []
+    for uri in uris:
+        info = db.execute("SELECT image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
+        # als er geen image of label aanwezig is
+        if len(info) > 0:
+            verzameling.append(info[0])
+    return verzameling
