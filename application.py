@@ -4,6 +4,7 @@ from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 from passlib.context import CryptContext
+import pprint
 
 from helpers import *
 
@@ -31,13 +32,6 @@ db = SQL("sqlite:///finance.db")
 @app.route("/")
 def index():
     return render_template("index.html")
-
-@app.route("/")
-def homepage():
-    """Homepage of site"""
-    if request.method == "GET":
-
-        return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -134,3 +128,29 @@ def register():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
+
+
+@app.route("/balanced")
+def balanced():
+    uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel="Balanced")
+    verzameling = []
+    for uri in uris:
+        info = db.execute("SELECT image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
+        # als er geen image of label aanwezig is
+        if len(info) > 0:
+            verzameling.append(info[0])
+    pprint.pprint(verzameling)
+
+    return render_template("balanced.html")
+
+@app.route("/lowCarb")
+def lowCarb():
+    return apology("TODO")
+
+@app.route("/lowFat")
+def lowFat():
+    return apology("TODO")
+
+@app.route("/highProtein")
+def highProtein():
+    return apology("TODO")
