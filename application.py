@@ -122,7 +122,7 @@ def register():
 
         # insert user into users
         db.execute("INSERT INTO users (username, email, hash) VALUES(:username, :email, :hash)",
-                    username=request.form.get("username"), email=request,form.get("email") hash=hash)
+                    username=request.form.get("username"), email=request.form.get("email"), hash=hash)
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # remember which user has logged in
