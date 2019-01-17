@@ -88,8 +88,8 @@ def register():
     if request.method == "POST":
 
         # ensure username and password was submitted
-        if not request.form.get("username") or not request.form.get("password") or not request.form.get("email"):
-            return apology("must provide username/password/email")
+        if not request.form.get("username") or not request.form.get("password"):
+            return apology("must provide username/password")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
@@ -148,3 +148,7 @@ def recept():
     info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
     ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
     return render_template("recept.html", info=info[0], ingredienten=ingredienten[0])
+
+@app.route("/personal_profile")
+def personal_profile():
+    return apology("TODO")
