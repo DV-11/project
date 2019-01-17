@@ -29,12 +29,31 @@
 
             <div class="navbar container">
                 <div class="navbar_left">
-                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}"></a>
+                    <a href="{{ url_for('index') }}"><img style = 'padding-top:5px; max-height: 50px; margin-right:50px;'src="{{ url_for('static', filename='images/logo.png') }}"></a>
+
+
+                    <ul>
+                        <li>
+                            <a class='bar_item'>Categories</a>
+                            <div class="dropdown">
+
+                                <div class='dropdown-content'>
+                                    <a href="#">Link 1</a>
+                                    <a href="#">Link 2</a>
+                                    <a href="#">Link 3</a>
+                                    <a href="#">Link 3</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+
                 </div>
                 <nav>
                 {% if session.user_id %}
                     <ul>
-                        <li><a class ='bar_item' href="{{ url_for('person_profile') }}">My Account</a></li>
+                        <li><a class ='bar_item' href="{{ url_for('personal_profile') }}">My Account</a></li>
                         <li><a class ='bar_item' href="{{ url_for('logout') }}">Log Out</a></li>
                     </ul>
                 {% else %}
