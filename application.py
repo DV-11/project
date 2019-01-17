@@ -98,13 +98,6 @@ def register():
         if len(rows) == 1:
             return apology("username already exists")
 
-        # query databasse for email
-        rows = db.execute("SELECT * FROM users WHERE email = :email", email=request.form.get("email"))
-
-        # ensure email doesn't already exist
-        if len(rows) == 1:
-            return apology("There is already an account with this email")
-
         # ensure password is the same as passwordcheck
         if request.form.get("password") != request.form.get("confirmation"):
             return apology("passwords are not matching")
@@ -115,12 +108,12 @@ def register():
         hash = pwd_context.hash(request.form.get("password"))
 
         # insert user into users
-        db.execute("INSERT INTO users (username, email, hash) VALUES(:username, :email, :hash)",
-                    username=request.form.get("username"), email=request.form.get("email"), hash=hash)
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
+                    username=request.form.get("username"), hash=hash)
+        # rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        # session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
         return redirect(url_for("index"))
