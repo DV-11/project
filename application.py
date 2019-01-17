@@ -153,3 +153,7 @@ def lowFat():
 @app.route("/highProtein")
 def highProtein():
     return apology("TODO")
+
+@app.route("/recept")
+def recept():
+    return render_template("recept.html")
