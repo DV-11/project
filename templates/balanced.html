@@ -8,19 +8,11 @@
     <div>
         {% for info in verzameling %}
             <div style=float:left>
-                <a href="recept">
+                <a href="recept?id={{ info['id'] }}">
                     <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
                     <div class="tekst" >{{ info['label'] }}</div>
                 </a>
             </div>
-            <!--<div style=float:right>-->
-            <!--    <div><img src="https://www.edamam.com/web-img/9fb/9fbdf8a084eb5fbbf8e116867a99e8cc.jpg"></div>-->
-            <!--    <div>Crispy Cheese Tacos Recipe</div>-->
-            <!--</div>-->
-            <!--<div style=float:middle>-->
-            <!--    <div><img src="https://www.edamam.com/web-img/9fb/9fbdf8a084eb5fbbf8e116867a99e8cc.jpg"></div>-->
-            <!--    <div>Crispy Cheese</div>-->
-            <!--</div>-->
         {% endfor %}
     </div>
 {% endblock %}
