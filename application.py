@@ -110,10 +110,10 @@ def register():
         # insert user into users
         db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
                     username=request.form.get("username"), hash=hash)
-        # rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # remember which user has logged in
-        # session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
         return redirect(url_for("index"))
@@ -143,11 +143,11 @@ def highProtein():
     verzameling = voorvertoning("High-Protein")
     return render_template("highProtein.html", verzameling=verzameling)
 
-@app.route("/recept", methods=['GET'])
+@app.route("/recept", methods=["GET"])
 def recept():
     info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
     ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
-    return render_template("recept.html", info=info[0], ingredienten=ingredienten[0])
+    return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
 @app.route("/personal_profile")
 def personal_profile():
