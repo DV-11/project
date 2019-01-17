@@ -8,8 +8,10 @@
     <div>
         {% for info in verzameling %}
             <div style=float:left>
-                <div><img src="{{ info['image'] }}"></div>
-                <div>{{ info['label'] }}</div>
+                <a href="recept">
+                    <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
+                    <div class="tekst" >{{ info['label'] }}</div>
+                </a>
             </div>
             <!--<div style=float:right>-->
             <!--    <div><img src="https://www.edamam.com/web-img/9fb/9fbdf8a084eb5fbbf8e116867a99e8cc.jpg"></div>-->
