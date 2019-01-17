@@ -151,7 +151,9 @@ padding: 0px 16px;
     outline:0;
     align-items: center;
 
-.homepage_images{
+}
+
+.homepage_images {
     display: -webkit-inline-box;
 }
 
