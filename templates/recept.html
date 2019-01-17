@@ -7,6 +7,9 @@
 {% block main %}
     <div>
         <titel>{{ info.label }}</titel>
+        <div>
+            <button class="btn btn-default" type="submit">Favoriet</button>
+        </div>
         <div><img src="{{ info['image'] }}" height=400px width=530px alt="recept"></div>
         <p>
             Calories: {{ info.calories }}
@@ -17,7 +20,7 @@
         </p>
         <p>
             <div>Cooking methode</div>
-            <div>For the cooking methode, please follow <a href="{{ info.url }}"> this</a> link.</div>
+            <div>For the cooking methode, please follow <a href="{{ info.url }}" target="_blank"> this</a> link.</div>
         </p>
 
     </div>
