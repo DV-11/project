@@ -23,8 +23,8 @@ def balancedRecepten():
         calories = recepten[i]['recipe']['calories']
 
         # ubdate tabel cashen
-        # db.execute("INSERT INTO cachen (uri, url, label, image, calories) VALUES(:uri, :url, :label, :image, :calories)",
-        #             uri=uri, url=url, label=label, image=image, calories=calories)
+        db.execute("INSERT INTO cachen (uri, url, label, image, calories) VALUES(:uri, :url, :label, :image, :calories)",
+                    uri=uri, url=url, label=label, image=image, calories=calories)
 
         # benoem de waardes voor ingredients tabel
         for ingredient in range(len(ingredients)):
