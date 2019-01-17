@@ -6,7 +6,7 @@ db = SQL("sqlite:///finance.db")
 
 def balancedRecepten():
     # haal alle balanced recepten op
-    balanced = requests.get("https://api.edamam.com/search?q=&app_id=e4a4f431&app_key=19473fe38dd2a93f7d82dd69663bd844&diet=low-carb&to=1000")
+    balanced = requests.get("https://api.edamam.com/search?q=&app_id=e4a4f431&app_key=19473fe38dd2a93f7d82dd69663bd844&diet=high-protein&to=1000")
     content = balanced.json()
     recepten = content['hits']
 
@@ -23,8 +23,8 @@ def balancedRecepten():
         calories = recepten[i]['recipe']['calories']
 
         # ubdate tabel cashen
-        db.execute("INSERT INTO cachen (uri, url, label, image, calories) VALUES(:uri, :url, :label, :image, :calories)",
-                    uri=uri, url=url, label=label, image=image, calories=calories)
+        # db.execute("INSERT INTO cachen (uri, url, label, image, calories) VALUES(:uri, :url, :label, :image, :calories)",
+        #             uri=uri, url=url, label=label, image=image, calories=calories)
 
         # benoem de waardes voor ingredients tabel
         for ingredient in range(len(ingredients)):
