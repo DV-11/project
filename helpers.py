@@ -118,10 +118,10 @@ def usd(value):
 db = SQL("sqlite:///finance.db")
 
 def voorvertoning(categorie):
-    uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel="catogorie")
+    uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel=categorie)
     verzameling = []
     for uri in uris:
-        info = db.execute("SELECT image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
+        info = db.execute("SELECT id, image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
         # als er geen image of label aanwezig is
         if len(info) > 0:
             verzameling.append(info[0])

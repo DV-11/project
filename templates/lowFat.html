@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Low-fat recipes
+{% endblock %}
+
+{% block main %}
+    <div>
+        {% for info in verzameling %}
+            <div style=float:left>
+                <a href="recept?id={{ info['id'] }}">
+                    <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
+                    <div class="tekst" >{{ info['label'] }}</div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
