@@ -28,6 +28,8 @@
   - Geen eigen scherm, voegt een recept toe aan favoriete recepten op persoonlijk profiel, blijf op pagina
 - Gebruikers
   - Scherm met alle gebruikers die betreffend recept hebben geliked, GET, POST
+- Recept
+  - scherm waar het betreffende recept op staat, kan er komen als op recept wordt geklikt op categorie pagina
 
 ### Views
 
