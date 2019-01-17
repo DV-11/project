@@ -80,20 +80,24 @@ header li{
     height: 100%;
 }
 
-header li:hover{
-    background-color: slategray;
-    opacity: 0.7;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-}
-
 header nav{
     float: right;
     text-align: right;
     height: 100%;
     padding: 0px 10% 0 0;
     position: relative;
+}
+
+.accicon:hover{
+    opacity:0.7;
+}
+
+.item:hover{
+    background-color: slategray;
+    opacity: 0.7;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
 }
 
 .navbar_left{

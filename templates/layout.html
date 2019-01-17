@@ -29,12 +29,12 @@
 
             <div class="navbar container">
                 <div class="navbar_left">
-                    <a href="{{ url_for('index') }}"><img style = 'padding-top:5px; max-height: 50px; margin-right:50px;'src="{{ url_for('static', filename='images/logo.png') }}"></a>
+                    <a href="{{ url_for('index') }}"><img style = 'padding-top:5px; max-height: 50px; margin-right:16px;'src="{{ url_for('static', filename='images/logo.png') }}"></a>
 
 
                     <ul>
                         <li>
-                            <a class='bar_item'>Categories</a>
+                            <a class='bar_item item'>Categories &#9660;</a>
                             <div class="dropdown">
 
                                 <div class='dropdown-content'>
@@ -53,14 +53,13 @@
                 <nav>
                 {% if session.user_id %}
                     <ul>
-                        <li><a class ='bar_item' href="{{ url_for('personal_profile') }}">My Account</a></li>
-                        <li><a class ='bar_item' href="{{ url_for('logout') }}">Log Out</a></li>
+                        <li class='accicon'><a class ='bar_item' href="{{ url_for('personal_profile') }}"><img style = 'max-height: 40px;'src="{{ url_for('static', filename='images/account_icon.png') }}"></a></li>
+                        <li class='item'><a class ='bar_item' href="{{ url_for('logout') }}">Log Out</a></li>
                     </ul>
                 {% else %}
                     <ul>
-                        <li><a class ='bar_item' href="{{ url_for('register') }}">Register</a></li>
-                        <li><a class ='bar_item' href="{{ url_for('login') }}">Log In</a></li>
-                        <li><a class ='bar_item' href="{{ url_for('balanced') }}">Balanced</a></li>
+                        <li class='item'><a class ='bar_item' href="{{ url_for('register') }}">Register</a></li>
+                        <li class='item'><a class ='bar_item' href="{{ url_for('login') }}">Log In</a></li>
                     </ul>
                 {% endif %}
                 </nav>
