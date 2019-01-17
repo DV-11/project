@@ -15,8 +15,10 @@
             Calories: {{ info.calories }}
         </p>
         <p>
-            <div>Ingredients</div>
-            <div>{{ ingredienten.tekst }}</div>
+            <div>Ingredients:</div>
+            {% for ingredient in ingredienten %}
+                <div>{{ ingredient.tekst }}</div>
+            {% endfor %}
         </p>
         <p>
             <div>Cooking methode</div>
