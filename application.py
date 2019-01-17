@@ -132,28 +132,26 @@ def register():
 
 @app.route("/balanced")
 def balanced():
-    uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel="Balanced")
-    verzameling = []
-    for uri in uris:
-        info = db.execute("SELECT image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
-        # als er geen image of label aanwezig is
-        if len(info) > 0:
-            verzameling.append(info[0])
-
+    verzameling = voorvertoning("Balanced")
     return render_template("balanced.html", verzameling=verzameling)
 
 @app.route("/lowCarb")
 def lowCarb():
-    return apology("TODO")
+    verzameling = voorvertoning("Low-Carb")
+    return render_template("lowCarb.html", verzameling=verzameling)
 
 @app.route("/lowFat")
 def lowFat():
-    return apology("TODO")
+    verzameling = voorvertoning("Low-Fat")
+    return render_template("lowFat.html", verzameling=verzameling)
 
 @app.route("/highProtein")
 def highProtein():
-    return apology("TODO")
+    verzameling = voorvertoning("High-Protein")
+    return render_template("highProtein.html", verzameling=verzameling)
 
-@app.route("/recept")
+@app.route("/recept", methods=['GET'])
 def recept():
-    return render_template("recept.html")
+    info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
+    ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
+    return render_template("recept.html", info=info[0], ingredienten=ingredienten[0])
