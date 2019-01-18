@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block main %}
-    <div>
+    <div style= "text-align:center" >
         <h1>My Profile</h1>
-        <p>Username:</p>
-        <p>E-mail:</p>
+        <p>Username: {{ username }}</p>
         </div>
-            <a href="settings.html">Settings</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
         </div>
     </div>
     <div>
