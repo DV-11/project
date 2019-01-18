@@ -151,4 +151,4 @@ def recept():
 
 @app.route("/personal_profile")
 def personal_profile():
-    return apology("TODO")
+    return render_template("personal_profile.html")
