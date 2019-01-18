@@ -147,7 +147,7 @@ def highProtein():
 def recept():
     info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
     ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
-    return render_template("recept.html", info=info[0], ingredienten=ingredienten)
+    return render_template("recept.html", info=info[0], ingredienten=ingredienten[0])
 
 @app.route("/personal_profile")
 def personal_profile():
