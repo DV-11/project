@@ -143,11 +143,16 @@ def highProtein():
     verzameling = voorvertoning("High-Protein")
     return render_template("highProtein.html", verzameling=verzameling)
 
-@app.route("/recept", methods=["GET"])
+@app.route("/recept", methods=["GET", "POST"])
 def recept():
     info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
-    ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
-    return render_template("recept.html", info=info[0], ingredienten=ingredienten[0])
+    if request.method == "GET":
+        ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
+        return render_template("recept.html", info=info[0], ingredienten=ingredienten)
+    else:
+        db.execute("INSERT INTO favorites (user_id, recipe_id, image, label) VALUES(:user_id, :recipe_id, :image, :label",
+                    user_id=session["user_id"], recipe_id=request.form.get('id'), image=info[0]['image'], label=info[0]['label'])
+        return redirect(url_for("index"))
 
 @app.route("/personal_profile")
 def personal_profile():
