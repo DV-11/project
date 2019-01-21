@@ -5,25 +5,42 @@
 {% endblock %}
 
 {% block main %}
-    <div>
-        <titel>{{ info.label }}</titel>
+    <form action="{{ url_for('recept') }}" method="post">
         <div>
-            <button class="btn btn-default" type="submit">Favoriet</button>
-        </div>
-        <div><img src="{{ info['image'] }}" height=400px width=530px alt="recept"></div>
-        <p>
-            Calories: {{ info.calories }}
-        </p>
-        <p>
-            <div>Ingredients:</div>
-            {% for ingredient in ingredienten %}
-                <div>{{ ingredient.tekst }}</div>
-            {% endfor %}
-        </p>
-        <p>
-            <div>Cooking methode</div>
-            <div>For the cooking methode, please follow <a href="{{ info.url }}" target="_blank"> this</a> link.</div>
-        </p>
+            <titel>{{ info.label }}</titel>
+            <div>
+                {% if session.user_id %}
+                <fav>
+                    <button id="favorite">Favorite</button>
+                </fav>
+                {% else %}
+                <ref>
+                    <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
+                </ref>
+                {% endif %}
+            </div>
 
-    </div>
+            <script>
+                let fav = document.querySelector('fav');
+                document.querySelector('#favorite').onclick = function() {
+                    fav.style.color = 'red'
+                };
+            </script>
+
+            <div><img src="{{ info['image'] }}" height=400px width=530px alt="recept"></div>
+            <p>
+                Calories: {{ info.calories }}
+            </p>
+            <p>
+                <div>Ingredients:</div>
+                {% for ingredient in ingredienten %}
+                    <div>{{ ingredient.tekst }}</div>
+                {% endfor %}
+            </p>
+            <p>
+                <div>Cooking methode</div>
+                <div>For the cooking methode, please follow <a href="{{ info.url }}" target="_blank"> this</a> link.</div>
+            </p>
+        </div>
+    </form>
 {% endblock %}
