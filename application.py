@@ -164,11 +164,12 @@ def recept():
     else:
         recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
         # delete if recipe already in favorites
-        if int(request.form.get('id')) not in recepten[0].values():
-            db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
-        else:
-            db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
+        if len(recepten)>0:
+            if int(request.form.get("recipeID")) not in recepten[0].values():
+                db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
+                            user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+            else:
+                db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
         return redirect(url_for("index"))
 
 @app.route("/personal_profile")
