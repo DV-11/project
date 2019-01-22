@@ -143,16 +143,26 @@ def recept():
 
         if session["user_id"]:
             recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+            gebruikers = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
+            print(gebruikers)
+            favUsers = []
+            # for gebruiker in gebruikers:
+
             # make button red if in favorite
             if len(recepten)>0:
+                print(int(request.args.get('id')))
+                print(recepten)
+                print(recepten[0].values())
                 if int(request.args.get('id')) in recepten[0].values():
                     isFavorite=True
                 else:
                     isFavorite=False
+                print(isFavorite)
 
                 return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite)
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
+    # if request method is POST
     else:
         recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
         # delete if recipe already in favorites
@@ -162,6 +172,9 @@ def recept():
                             user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
             else:
                 db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
+        else:
+            db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
+                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
         return redirect(url_for("index"))
 
 
