@@ -75,7 +75,7 @@ def logout():
     session.clear()
 
     # redirect user to login form
-    return redirect(url_for("homepage"))
+    return redirect(url_for("index"))
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -159,7 +159,28 @@ def personal_profile():
     uname = db.execute("SELECT :username FROM users WHERE id=:id", username = 'username', id=request.args.get('id'))
     return render_template("personal_profile.html", username = uname)
 
-@app.route("/settings")
+@app.route("/settings", methods=["GET", "POST"])
 def settings():
 
-    return render_template("settings.html")
+    if request.method == "POST":
+
+        if not request.form.get("old_password") or not request.form.get("new_password") or not request.form.get("confirmation"):
+            return apology("must fill in all fields")
+
+        if request.form.get("new_password") != request.form.get("confirmation"):
+            return apology("confirmation does not match")
+
+        rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
+
+        if len(rows) != 1 or not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
+            return apology("incorrect old password")
+
+        hash = pwd_context.hash(request.form.get("new_password"))
+
+        db.execute("UPDATE users SET hash=:hash", hash=hash)
+
+        return render_template("personal_profile.html")
+
+    else:
+        return render_template("settings.html")
+
