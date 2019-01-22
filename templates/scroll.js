@@ -1,4 +1,4 @@
-$('div.fields:lt(10)').show();
+$('div.tekst:lt(10)').show();
 
 var wrapper = document.getElementById("wrapper");
 
