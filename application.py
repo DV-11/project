@@ -137,23 +137,33 @@ def highProtein():
 
 @app.route("/recept", methods=["GET", "POST"])
 def recept():
+
+
+
+
     if request.method == "GET":
         info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
         ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
 
         if session["user_id"]:
-            recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-            gebruikers = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
+            receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+            recepten =[]
+            for recept in receptenDict:
+                recepten.append(receptenDict[recept]['recipe_id'])
+
+            gebruikersDict = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
+            gebruikers = []
+            for gebruiker in gebruikersDict:
+                gebruikers.append(gebruikersDict[gebruiker]['user_id'])
+
             print(gebruikers)
-            favUsers = []
-            # for gebruiker in gebruikers:
 
             # make button red if in favorite
             if len(recepten)>0:
                 print(int(request.args.get('id')))
                 print(recepten)
-                print(recepten[0].values())
-                if int(request.args.get('id')) in recepten[0].values():
+                print(type(recepten))
+                if int(request.args.get('id')) in recepten:
                     isFavorite=True
                 else:
                     isFavorite=False
