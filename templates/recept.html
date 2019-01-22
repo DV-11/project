@@ -5,27 +5,27 @@
 {% endblock %}
 
 {% block main %}
-    <form action="{{ url_for('recept') }}" method="post">
+     <form action="{{ url_for('recept') }}" method="post">
         <div>
             <titel>{{ info.label }}</titel>
             <div>
                 {% if session.user_id %}
-                <fav>
-                    <button id="favorite">Favorite</button>
-                </fav>
+                    <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
+                    {% if isFavorite %}
+                    <fav>
+                        <button class=red id="favorite">Favo</button>
+                    </fav>
+                    {% else %}
+                    <fav>
+                        <button id="favorite">Favorite</button>
+                    </fav>
+                    {% endif %}
                 {% else %}
-                <ref>
-                    <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
-                </ref>
+                    <ref>
+                        <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
+                    </ref>
                 {% endif %}
             </div>
-
-            <script>
-                let fav = document.querySelector('fav');
-                document.querySelector('#favorite').onclick = function() {
-                    fav.style.color = 'red'
-                };
-            </script>
 
             <div><img src="{{ info['image'] }}" height=400px width=530px alt="recept"></div>
             <p>

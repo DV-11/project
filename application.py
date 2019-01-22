@@ -145,13 +145,30 @@ def highProtein():
 
 @app.route("/recept", methods=["GET", "POST"])
 def recept():
-    info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
     if request.method == "GET":
+        info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
         ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
+
+        if session["user_id"]:
+            recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+            # make button red if in favorite
+            if len(recepten)>0:
+                if int(request.args.get('id')) in recepten[0].values():
+                    isFavorite=True
+                else:
+                    isFavorite=False
+
+                return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite)
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
+
     else:
-        db.execute("INSERT INTO favorites (user_id, recipe_id, image, label) VALUES(:user_id, :recipe_id, :image, :label",
-                    user_id=session["user_id"], recipe_id=request.form.get('id'), image=info[0]['image'], label=info[0]['label'])
+        recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+        # delete if recipe already in favorites
+        if int(request.form.get('id')) not in recepten[0].values():
+            db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
+                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        else:
+            db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
         return redirect(url_for("index"))
 
 @app.route("/personal_profile")
