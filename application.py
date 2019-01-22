@@ -164,7 +164,7 @@ def recept():
     else:
         recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
         # delete if recipe already in favorites
-        if request.form.get('id') not in recepten:
+        if int(request.form.get('id')) not in recepten[0].values():
             db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                         user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
         else:
