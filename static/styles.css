@@ -333,3 +333,16 @@ footer {
 .red{
     background-color: red;
 }
+
+#scroll-content > div {
+      background: #c0c0c0;
+      height: 200px;
+      margin-bottom: 80px;
+}
+
+#wrapper {
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}

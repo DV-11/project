@@ -12,7 +12,11 @@
             <a href="{{ url_for('settings') }}">Settings</a>
         </div>
     </div>
+    <div style = "text-align:center">
+        <h1>Favourite Recipes</h1>
+        <p> You have {{ ammount }} favourite recipes. </p>
+    </div>
     <div>
-        <h1>Favourites</h1>
+        <p>{{ favourites }}</p>
     </div>
 {% endblock %}
