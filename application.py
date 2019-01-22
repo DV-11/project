@@ -164,6 +164,7 @@ def recept():
                 db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
         return redirect(url_for("index"))
 
+
 @app.route("/personal_profile")
 def personal_profile():
     rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
