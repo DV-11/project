@@ -9,7 +9,7 @@
         <div id="wrapper">
             <div id="scroll-content">
                 {% for info in verzameling %}
-                    <div style=float:left>
+                    <div class="fields" style=float:left>
                         <a href="recept?id={{ info['id'] }}">
                             <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
                             <div class="tekst" >{{ info['label'] }}</div>

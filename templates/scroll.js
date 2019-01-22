@@ -1,3 +1,5 @@
+$('div.fields:lt(50)').show();
+
 var wrapper = document.getElementById("wrapper");
 
 wrapper.addEventListener("scroll", function (event) {
