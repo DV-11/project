@@ -284,6 +284,6 @@ footer {
 #wrapper {
     position: relative;
     overflow: auto;
-    width: 300px;
+    width: 100%;
     height: 300px;
 }
