@@ -173,7 +173,7 @@ def settings():
 
         rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
 
-        if len(rows) != 1 or not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
+        if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
             return apology("incorrect old password")
 
         hash = pwd_context.hash(request.form.get("new_password"))
