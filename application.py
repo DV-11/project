@@ -44,10 +44,6 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        # ensure username and password was submitted
-        if not request.form.get("username") or not request.form.get("password"):
-            return apology("must provide username/password")
-
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
@@ -86,10 +82,6 @@ def register():
 
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-
-        # ensure username and password was submitted
-        if not request.form.get("username") or not request.form.get("password"):
-            return apology("must provide username/password")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
@@ -181,9 +173,6 @@ def personal_profile():
 def settings():
 
     if request.method == "POST":
-
-        if not request.form.get("old_password") or not request.form.get("new_password") or not request.form.get("confirmation"):
-            return apology("must fill in all fields")
 
         if request.form.get("new_password") != request.form.get("confirmation"):
             return apology("confirmation does not match")
