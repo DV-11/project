@@ -7,96 +7,103 @@
 {% block main %}
     <div>
         <!--Filter-->
-        <fieldset>
-            <div >
-                <h4>
-                    Allergens
-                </h4>
-                <p>
-                    Exclude the following ingredients:
-                </p>
-                <ul class='filter'>
-                    <li>
-                        <input type="checkbox" class="checkbox">
-                        Alcohol
-                    </li>
-                    <li>
-                        Diary
-                    </li>
-                    <li>
-                        Eggs
-                    </li>
-                    <li>
-                        Fish
-                    </li>
-                    <li>
-                        Gluten
-                    </li>
-                    <li>
-                        Lupine
-                    </li>
-                    <li>
-                        Mustard
-                    </li>
-                    <li>
-                        Oil
-                    </li>
-                    <li>
-                        Sugar
-                    </li>
-                    <li>
-                        Peanuts
-                    </li>
-                    <li>
-                        Pork
-                    </li>
-                    <li>
-                        Red meat
-                    </li>
-                    <li>
-                        Sesame
-                    </li>
-                    <li>
-                        Shellfish
-                    </li>
-                    <li>
-                        Soy
-                    </li>
-                    <li>
-                        Tree Nuts
-                    </li>
-                    <li>
-                        Wheat
-                    </li>
-                </ul>
-                <h4>
-                    Diet
-                </h4>
-                <ul>
-                    <li>
-                        Pescatarian
-                    </li>
-                    <li>
-                        Vegan
-                    </li>
-                    <li>
-                        Vegetarian
-                    </li>
-                </ul>
-                <h4>
-                    Ingredients
-                </h4>
-                <p>
-                    Select the number of ingredients:
-                </p>
-                <h4>
-                    Time
-                </h4>
-                <p>
-                    Select the amount of time spent cooking:
-                </p>
-            </div>
-        </fieldset>
+        <form>
+            <h4>
+                Allergens
+            </h4>
+            <input type="checkbox" id="allergens1" value="Alcohol">
+            <label for="allergens1">Alcohol</label>
+        </form>
+        <!--<fieldset>-->
+        <!--    <div >-->
+        <!--        <h4>-->
+        <!--            Allergens-->
+        <!--        </h4>-->
+        <!--        <p>-->
+        <!--            Exclude the following ingredients:-->
+        <!--        </p>-->
+        <!--        <ul class='filter'>-->
+        <!--            <li>-->
+        <!--                <input type="checkbox">-->
+        <!--                Alcohol-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Diary-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Eggs-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Fish-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Gluten-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Lupine-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Mustard-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Oil-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Sugar-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Peanuts-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Pork-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Red meat-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Sesame-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Shellfish-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Soy-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Tree Nuts-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Wheat-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <!--        <h4>-->
+        <!--            Diet-->
+        <!--        </h4>-->
+        <!--        <ul>-->
+        <!--            <li>-->
+        <!--                Pescatarian-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Vegan-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                Vegetarian-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <!--        <h4>-->
+        <!--            Ingredients-->
+        <!--        </h4>-->
+        <!--        <p>-->
+        <!--            Select the number of ingredients:-->
+        <!--        </p>-->
+        <!--        <h4>-->
+        <!--            Time-->
+        <!--        </h4>-->
+        <!--        <p>-->
+        <!--            Select the amount of time spent cooking:-->
+        <!--        </p>-->
+        <!--    </div>-->
+        <!--</fieldset>-->
         {% for info in verzameling %}
             <div style=float:left>
                 <a href="recept?id={{ info['id'] }}">
