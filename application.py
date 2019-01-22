@@ -137,9 +137,11 @@ def highProtein():
 
 @app.route("/recept", methods=["GET", "POST"])
 def recept():
-
-
-
+    # if returned recipe id is empty after POST, use returned id
+    # if request.args.get('id') is None:
+    #     recipe_id = recipeID
+    # else:
+    #     recipe_id = request.args.get('id')
 
     if request.method == "GET":
         info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
@@ -148,28 +150,21 @@ def recept():
         if session["user_id"]:
             receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
             recepten =[]
-            for recept in receptenDict:
+            for recept in range(len(receptenDict)):
                 recepten.append(receptenDict[recept]['recipe_id'])
 
             gebruikersDict = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
             gebruikers = []
-            for gebruiker in gebruikersDict:
+            for gebruiker in range(len(gebruikersDict)):
                 gebruikers.append(gebruikersDict[gebruiker]['user_id'])
 
-            print(gebruikers)
-
             # make button red if in favorite
+            isFavorite=False
             if len(recepten)>0:
-                print(int(request.args.get('id')))
-                print(recepten)
-                print(type(recepten))
                 if int(request.args.get('id')) in recepten:
                     isFavorite=True
-                else:
-                    isFavorite=False
-                print(isFavorite)
 
-                return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite)
+                return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers)
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
     # if request method is POST
