@@ -20,10 +20,12 @@
                             <button id="favorite">Favorite</button>
                         </fav>
                     {% endif %}
-                    <users>
-                        <button id="favUsers" onclick="favUsers()">Click to see other users who added this recipe to their favorites.</button>
-                    </users>
-                    <script src="myScript.js"></script>
+                    <button class="collapsible">Click to see wich users added this recipe to their favorite.</button>
+                    <div class="content">
+                      <p>
+                          hoi
+                      </p>
+                    </div>
                 {% else %}
                     <ref>
                         <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
