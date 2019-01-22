@@ -12,14 +12,18 @@
                 {% if session.user_id %}
                     <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
                     {% if isFavorite %}
-                    <fav>
-                        <button class=red id="favorite">Favo</button>
-                    </fav>
+                        <fav>
+                            <button class=red id="favorite">Favo</button>
+                        </fav>
                     {% else %}
-                    <fav>
-                        <button id="favorite">Favorite</button>
-                    </fav>
+                        <fav>
+                            <button id="favorite">Favorite</button>
+                        </fav>
                     {% endif %}
+                    <users>
+                        <button id="favUsers" onclick="favUsers()">Click to see other users who added this recipe to their favorites.</button>
+                    </users>
+                    <script src="myScript.js"></script>
                 {% else %}
                     <ref>
                         <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
