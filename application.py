@@ -156,7 +156,8 @@ def recept():
 
 @app.route("/personal_profile")
 def personal_profile():
-    uname = db.execute("SELECT :username FROM users WHERE id=:id", username = 'username', id=request.args.get('id'))
+    rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
+    uname = rows[0]['username']
     return render_template("personal_profile.html", username = uname)
 
 @app.route("/settings", methods=["GET", "POST"])
