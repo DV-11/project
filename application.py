@@ -195,7 +195,9 @@ def settings():
         db.execute("UPDATE users SET hash=:hash", hash=hash)
 
         return render_template("personal_profile.html")
-
     else:
         return render_template("settings.html")
 
+@app.route("/other_profile", methods=["GET","POST"])
+def other_profile():
+    return apology("TODO")
