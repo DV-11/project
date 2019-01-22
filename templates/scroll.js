@@ -1,3 +1,5 @@
+$('div.tekst:lt(10)').show();
+
 var wrapper = document.getElementById("wrapper");
 
 wrapper.addEventListener("scroll", function (event) {
