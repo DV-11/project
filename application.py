@@ -182,7 +182,13 @@ def recept():
 def personal_profile():
     rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
     uname = rows[0]['username']
-    return render_template("personal_profile.html", username = uname)
+    recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+    count = len(recepten)
+    faves = []
+    for i in recepten:
+        faves.append(db.execute("SELECT (label, image) FROM cachen WHERE id = :id", id=i))
+
+    return render_template("personal_profile.html", username = uname, ammount = count, favourite = faves)
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
@@ -202,7 +208,9 @@ def settings():
         db.execute("UPDATE users SET hash=:hash", hash=hash)
 
         return render_template("personal_profile.html")
-
     else:
         return render_template("settings.html")
 
+@app.route("/other_profile", methods=["GET","POST"])
+def other_profile():
+    return apology("TODO")
