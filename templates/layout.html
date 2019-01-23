@@ -11,11 +11,13 @@
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
 
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+        <!--Bootstrap style-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
-        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
-        <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>-->
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -37,7 +39,7 @@
                             <div class="dropdown">
                             <a class='bar_item'>Categories &#9660;</a>
 
-                                <div class='dropdown-content'>
+                                <div class='dropdown_content'>
                                     <a class='dropdownul' href="lowFat">Low Fat</a>
 
                                     <a class='dropdownul' href="lowCarb">Low Carb</a>
