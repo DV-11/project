@@ -1,1 +1,1 @@
-$("img").slice(20, 100).hide()
+$("img").slice(0, 2).hide()
