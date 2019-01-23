@@ -13,19 +13,39 @@
                     <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
                     {% if isFavorite %}
                         <fav>
-                            <button class=red id="favorite">Favo</button>
+                            <button type="submit" class=red id="favorite">Favo</button>
                         </fav>
                     {% else %}
                         <fav>
-                            <button id="favorite">Favorite</button>
+                            <button type="submit" id="favorite">Favorite</button>
                         </fav>
                     {% endif %}
-                    <button class="collapsible">Click to see wich users added this recipe to their favorite.</button>
+
+                    <button type="button" class="collapsible">Click to see wich users added this recipe to their favorite.</button>
                     <div class="content">
                       <p>
-                          hoi
+                          {% for gebruiker in gebruikers %}
+                              {{ gebruiker }}
+                          {% endfor %}
                       </p>
                     </div>
+
+                    <script>
+                    let coll = document.getElementsByClassName("collapsible");
+
+                    for (let i = 0; i < coll.length; i++) {
+                      coll[i].addEventListener("click", function() {
+                        this.classList.toggle("active");
+                        var content = this.nextElementSibling;
+                        if (content.style.display === "block") {
+                          content.style.display = "none";
+                        } else {
+                          content.style.display = "block";
+                        }
+                      });
+                    }
+                    </script>
+
                 {% else %}
                     <ref>
                         <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
