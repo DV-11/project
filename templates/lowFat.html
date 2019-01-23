@@ -13,11 +13,11 @@
                         <a href="recept?id={{ info['id'] }}">
                             <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
                             <div class="tekst" >{{ info['label'] }}</div>
+                            <script src = "scroll.js"></script>
                         </a>
                     </div>
                 {% endfor %}
             </div>
         </div>
-        <script src = "scroll.js"></script>
     </div>
 {% endblock %}

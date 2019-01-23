@@ -154,9 +154,14 @@ def recept():
                 recepten.append(receptenDict[recept]['recipe_id'])
 
             gebruikersDict = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
-            gebruikers = []
+            gebruikersID = []
             for gebruiker in range(len(gebruikersDict)):
-                gebruikers.append(gebruikersDict[gebruiker]['user_id'])
+                gebruikersID.append(gebruikersDict[gebruiker]['user_id'])
+
+            # make dict with user_id and username
+            if len(gebruikersID) > 0:
+                for gebruiker in gebruikersID:
+                    gebruikers = db.execute("SELECT id, username FROM users WHERE id = :id", id=gebruiker)
 
             # make button red if in favorite
             isFavorite=False
