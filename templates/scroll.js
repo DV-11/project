@@ -1,4 +1,3 @@
-$('div.tekst:lt(10)').show();
 
 var wrapper = document.getElementById("wrapper");
 
@@ -20,3 +19,5 @@ var checkForNewDiv = function () {
 };
 
 checkForNewDiv();
+
+$("img").slice(20).hide()
