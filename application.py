@@ -159,9 +159,11 @@ def recept():
                 gebruikersID.append(gebruikersDict[gebruiker]['user_id'])
 
             # make dict with user_id and username
+            gebruikers = []
             if len(gebruikersID) > 0:
                 for gebruiker in gebruikersID:
-                    gebruikers = db.execute("SELECT id, username FROM users WHERE id = :id", id=gebruiker)
+                    gegevens = db.execute("SELECT id, username FROM users WHERE id = :id", id=gebruiker)
+                    gebruikers.append(gegevens[0])
 
             # make button red if in favorite
             isFavorite=False

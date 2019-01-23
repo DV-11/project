@@ -25,10 +25,9 @@
                     <div class="content">
                       <div>
                           {% for gebruiker in gebruikers %}
-                              <div>
-                                  <a href="other_profile?id={{ gebruiker.id }}">
-                                  {{ gebruiker.username }}
-                              </div>
+                              <br>
+                                  <a href="other_profile?id={{ gebruiker.id }}">{{ gebruiker.username }}</a>
+                              </br>
                           {% endfor %}
                       </div>
                     </div>
@@ -56,7 +55,7 @@
                 {% endif %}
             </div>
 
-            <div><img src="{{ info['image'] }}" height=400px width=530px alt="recept"></div>
+            <div><img src="{{ info.image }}" height=400px width=530px alt="Can't load picture"></div>
             <p>
                 Calories: {{ info.calories }}
             </p>
