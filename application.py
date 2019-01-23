@@ -147,7 +147,7 @@ def recept():
         info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
         ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
 
-        if session["user_id"]:
+        if session.get("user_id"):
             receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
             recepten =[]
             for recept in range(len(receptenDict)):
@@ -171,7 +171,7 @@ def recept():
                 if int(request.args.get('id')) in recepten:
                     isFavorite=True
 
-                return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers)
+            return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers)
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
     # if request method is POST
