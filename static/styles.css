@@ -178,7 +178,6 @@ padding: 0px 16px;
 }
 
 
-}
 .dropbtn:hover{
     background-color: slategray;
     opacity: 0.7;
@@ -197,7 +196,7 @@ padding: 0px 16px;
 
 .filter{
     text-align: left !important;
-
+}
 
 button
 {
@@ -210,9 +209,12 @@ button
 	font-size: 18px;
 	text-align: center;
 	font-style: normal;
-	width: 60%;
 	box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
 	border:none;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
