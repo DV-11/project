@@ -203,6 +203,17 @@ def personal_profile():
     verzameling = fav_recipes(session['user_id'])
     return render_template("personal_profile.html", username = uname, ammount = count, verzameling = verzameling)
 
+
+@app.route("/other_profile", methods=["GET","POST"])
+def other_profile():
+    other_id = request.args.get('id')
+    rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=other_id)
+    uname = rows[0]['username']
+    count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=other_id))
+    verzameling = fav_recipes(other_id)
+    return render_template("other_profile.html", username = uname, ammount = count, verzameling = verzameling)
+
+
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
 
@@ -224,6 +235,4 @@ def settings():
     else:
         return render_template("settings.html")
 
-@app.route("/other_profile", methods=["GET","POST"])
-def other_profile():
-    return apology("TODO")
+
