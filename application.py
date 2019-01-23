@@ -148,50 +148,28 @@ def recept():
         ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
 
         if session.get("user_id"):
-            receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-            recepten =[]
-            for recept in range(len(receptenDict)):
-                recepten.append(receptenDict[recept]['recipe_id'])
+            # select al recipes the user has in favorites
+            recepten = favRecipes()
 
-            gebruikersDict = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
-            gebruikersID = []
-            for gebruiker in range(len(gebruikersDict)):
-                gebruikersID.append(gebruikersDict[gebruiker]['user_id'])
-
-            # make dict with user_id and username
-            gebruikers = []
-            if len(gebruikersID) > 0:
-                for gebruiker in gebruikersID:
-                    gegevens = db.execute("SELECT id, username FROM users WHERE id = :id", id=gebruiker)
-                    gebruikers.append(gegevens[0])
-
-            # make button red if in favorite
+            # make button red if current recipe is in favorites
             isFavorite=False
             if len(recepten)>0:
                 if int(request.args.get('id')) in recepten:
                     isFavorite=True
 
+            # select all the user-ids, usernames who had the selected recipe in their favorites
+            gebruikers = userInfo()
+
             return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers)
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
-    # if request method is POST
+    # if clicked on favorite button
     else:
-        receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-        recepten =[]
-        for recept in range(len(receptenDict)):
-            recepten.append(receptenDict[recept]['recipe_id'])
+        # select al recipes the user has in favorites
+        recepten = favRecipes()
 
-        # delete if recipe already in favorites
-        if len(recepten)>0:
-            print(recepten)
-            if int(request.form.get("recipeID")) not in recepten:
-                db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                            user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
-            else:
-                db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
-        else:
-            db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        # delete if recipe already in favorites, otherwise add to favorites
+        addOrDelete(recepten)
         return redirect(url_for("index"))
 
 
