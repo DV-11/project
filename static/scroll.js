@@ -1,8 +1,10 @@
-$("img").slice(16,).hide()
+var n = 16;
+$("img").slice(0,n).show()
 
 $("div.tekst").slice(16,).hide()
 
 function Showmore() {
-    $("img").slice(16,).show()
-    $("div.tekst").slice(16,).show();
+    n + 16
+    $("img").slice(0,n).show()
+    $("div.tekst").slice(0,n).show();
 }
