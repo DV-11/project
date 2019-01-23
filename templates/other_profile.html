@@ -1,15 +1,23 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Other Profile
+    Profile
 {% endblock %}
 
 {% block main %}
     <div style= "text-align:center" >
-        <h1>Profile</h1>
+        <h1> Profile</h1>
         <p>Username: {{ username }}</p>
+
     </div>
-    <div>
-        <h1>Favourites</h1>
+    <div style = "text-align:center">
+        <h1>Favourite Recipes</h1>
+        <p> {{ username }} has {{ ammount }} favourite recipes. </p>
     </div>
+    {% for info in verzameling %}
+        <div><img src="{{ info['image'] }}" height=220px width=300px alt="image"></div>
+        <div>
+            <a href="recept?id={{ info.id }}">{{ info.label }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}
