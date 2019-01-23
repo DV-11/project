@@ -7,6 +7,13 @@
     width: 80%;
 }
 
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
 /*General*/
 
 /*Kleuren:*/
@@ -266,7 +273,6 @@ footer {
     height: 100%;
 }
 
-<style>
 .collapsible {
   background-color: #777;
   color: white;
@@ -282,11 +288,3 @@ footer {
 .active, .collapsible:hover {
   background-color: #555;
 }
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-</style>
