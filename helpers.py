@@ -126,3 +126,50 @@ def voorvertoning(categorie):
         if len(info) > 0 and info not in verzameling:
             verzameling.append(info[0])
     return verzameling
+
+def fav_recipes(u_id):
+    recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id= u_id)
+    verzameling=[]
+    for i in range(len(recepten)):
+        rec_id = recepten[i]['recipe_id']
+        info = db.execute("SELECT * FROM cachen WHERE id = :id", id=rec_id)
+        verzameling.append(info[0])
+    return verzameling
+
+
+def userInfo():
+    # select all the user-ids who had this recipe in their favorites
+    gebruikersDict = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
+    gebruikersID = []
+    for gebruiker in range(len(gebruikersDict)):
+        gebruikersID.append(gebruikersDict[gebruiker]['user_id'])
+
+    # make list of dicts with user_id and username
+    gebruikers = []
+    if len(gebruikersID) > 0:
+        for gebruiker in gebruikersID:
+            gegevens = db.execute("SELECT id, username FROM users WHERE id = :id", id=gebruiker)
+            gebruikers.append(gegevens[0])
+    return gebruikers
+
+
+def favRecipes():
+    # select all the recipes that the user has in favorites
+    receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+    recepten =[]
+    for recept in range(len(receptenDict)):
+        recepten.append(receptenDict[recept]['recipe_id'])
+    return recepten
+
+def addOrDelete(recepten):
+    if len(recepten)>0:
+        # if recipe not in favorites, add
+        if int(request.form.get("recipeID")) not in recepten:
+            db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
+                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        else:
+            db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
+    # if there are no recipes in favorites, add to favorites
+    else:
+        db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
+                    user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))

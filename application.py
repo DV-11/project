@@ -137,44 +137,39 @@ def highProtein():
 
 @app.route("/recept", methods=["GET", "POST"])
 def recept():
+    # if returned recipe id is empty after POST, use returned id
+    # if request.args.get('id') is None:
+    #     recipe_id = recipeID
+    # else:
+    #     recipe_id = request.args.get('id')
+
     if request.method == "GET":
         info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
         ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
 
-        if session["user_id"]:
-            recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-            gebruikers = db.execute("SELECT user_id FROM favorites WHERE recipe_id = :recipe_id", recipe_id=request.args.get('id'))
-            print(gebruikers)
-            favUsers = []
-            # for gebruiker in gebruikers:
+        if session.get("user_id"):
+            # select al recipes the user has in favorites
+            recepten = favRecipes()
 
-            # make button red if in favorite
+            # make button red if current recipe is in favorites
+            isFavorite=False
             if len(recepten)>0:
-                print(int(request.args.get('id')))
-                print(recepten)
-                print(recepten[0].values())
-                if int(request.args.get('id')) in recepten[0].values():
+                if int(request.args.get('id')) in recepten:
                     isFavorite=True
-                else:
-                    isFavorite=False
-                print(isFavorite)
 
-                return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite)
+            # select all the user-ids, usernames who had the selected recipe in their favorites
+            gebruikers = userInfo()
+
+            return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers)
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
-    # if request method is POST
+    # if clicked on favorite button
     else:
-        recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-        # delete if recipe already in favorites
-        if len(recepten)>0:
-            if int(request.form.get("recipeID")) not in recepten[0].values():
-                db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                            user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
-            else:
-                db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
-        else:
-            db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        # select al recipes the user has in favorites
+        recepten = favRecipes()
+
+        # delete if recipe already in favorites, otherwise add to favorites
+        addOrDelete(recepten)
         return redirect(url_for("index"))
 
 
@@ -182,13 +177,20 @@ def recept():
 def personal_profile():
     rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
     uname = rows[0]['username']
-    recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-    count = len(recepten)
-    faves = []
-    for i in recepten:
-        faves.append(db.execute("SELECT (label, image) FROM cachen WHERE id = :id", id=i))
+    count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=session['user_id']))
+    verzameling = fav_recipes(session['user_id'])
+    return render_template("personal_profile.html", username = uname, ammount = count, verzameling = verzameling)
 
-    return render_template("personal_profile.html", username = uname, ammount = count, favourite = faves)
+
+@app.route("/other_profile", methods=["GET","POST"])
+def other_profile():
+    other_id = request.args.get('id')
+    rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=other_id)
+    uname = rows[0]['username']
+    count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=other_id))
+    verzameling = fav_recipes(other_id)
+    return render_template("other_profile.html", username = uname, ammount = count, verzameling = verzameling)
+
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
@@ -211,6 +213,4 @@ def settings():
     else:
         return render_template("settings.html")
 
-@app.route("/other_profile", methods=["GET","POST"])
-def other_profile():
-    return apology("TODO")
+

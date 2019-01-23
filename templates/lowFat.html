@@ -16,8 +16,13 @@
                         </a>
                     </div>
                 {% endfor %}
+                <script src = "{{ url_for('static', filename='scroll.js') }}"></script>
             </div>
         </div>
-        <script src = "scroll.js"></script>
+    </div>
+    <div>
+        <div class="button">
+            <button class="button" onclick="Showmore()">Show more</button>
+        </div>
     </div>
 {% endblock %}
