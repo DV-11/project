@@ -126,3 +126,12 @@ def voorvertoning(categorie):
         if len(info) > 0 and info not in verzameling:
             verzameling.append(info[0])
     return verzameling
+
+def fav_recipes(u_id):
+    recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id= u_id)
+    verzameling=[]
+    for i in range(len(recepten)):
+        rec_id = recepten[i]['recipe_id']
+        info = db.execute("SELECT * FROM cachen WHERE id = :id", id=rec_id)
+        verzameling.append(info[0])
+    return verzameling
