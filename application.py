@@ -169,10 +169,15 @@ def recept():
 
     # if request method is POST
     else:
-        recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+        receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
+        recepten =[]
+        for recept in range(len(receptenDict)):
+            recepten.append(receptenDict[recept]['recipe_id'])
+
         # delete if recipe already in favorites
         if len(recepten)>0:
-            if int(request.form.get("recipeID")) not in recepten[0].values():
+            print(recepten)
+            if int(request.form.get("recipeID")) not in recepten:
                 db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                             user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
             else:
