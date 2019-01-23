@@ -15,9 +15,11 @@
         <p> {{ username }} has {{ ammount }} favourite recipes. </p>
     </div>
     {% for info in verzameling %}
+        <a href="recept?id={{ info.id }}">
         <div><img src="{{ info['image'] }}" height=220px width=300px alt="image"></div>
         <div>
-            <a href="recept?id={{ info.id }}">{{ info.label }}</p>
+            {{ info.label }}
         </div>
+        </a>
     {% endfor %}
 {% endblock %}
