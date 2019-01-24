@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Low-carb recipes
+    Low carb recipes
 {% endblock %}
 
 {% block main %}
     <div>
+        <h1>Low Carb Recipes</h1>
         {% for info in verzameling %}
             <div style="float:left">
                 <a href="recept?id={{ info['id'] }}">
