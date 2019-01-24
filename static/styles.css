@@ -364,7 +364,7 @@ footer p{
 }
 
 .red{
-    background-color: red;
+    background-color: #ff6666;
 }
 
 #scroll-content > div {
@@ -381,13 +381,11 @@ footer p{
 }
 
 .collapsible {
-  background-color: #777;
+  background-color: lightgrey;
   color: white;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
   border: none;
-  text-align: left;
   outline: none;
   font-size: 15px;
 }
