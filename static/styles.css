@@ -42,6 +42,15 @@ body{
     margin:0;
 }
 
+.sidenav{
+    height: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+
+}
+
 main .form-control
 {
     /* center form controls */
