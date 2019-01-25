@@ -21,32 +21,15 @@
                         </fav>
                     {% endif %}
 
-                    <button type="button" class="collapsible">Click to see wich users added this recipe to their favorite.</button>
-                    <div class="content">
-                      <div>
-                          {% for gebruiker in gebruikers %}
-                              <br>
-                                  <a href="other_profile?id={{ gebruiker.id }}">{{ gebruiker.username }}</a>
-                              </br>
-                          {% endfor %}
-                      </div>
+                    <div>
+                        <div>{{ amount }} users added this recipe to their favorites!</div>
+                        <div>Visit someones profile to see their favorite recipes.</div>
+                        {% for gebruiker in gebruikers %}
+                        <div>
+                            <a href="other_profile?id={{ gebruiker.id }}">{{ gebruiker.username }}</a>
+                        </div>
+                        {% endfor %}
                     </div>
-
-                    <script>
-                    let coll = document.getElementsByClassName("collapsible");
-
-                    for (let i = 0; i < coll.length; i++) {
-                      coll[i].addEventListener("click", function() {
-                        this.classList.toggle("active");
-                        var content = this.nextElementSibling;
-                        if (content.style.display === "block") {
-                          content.style.display = "none";
-                        } else {
-                          content.style.display = "block";
-                        }
-                      });
-                    }
-                    </script>
 
                 {% else %}
                     <ref>
@@ -67,7 +50,7 @@
             </p>
             <p>
                 <div>Cooking methode</div>
-                <div>For the cooking methode, please follow <a href="{{ info.url }}" target="_blank"> this</a> link.</div>
+                <div>For the cooking method, please follow <a href="{{ info.url }}" target="_blank"> this</a> link.</div>
             </p>
         </div>
     </form>
