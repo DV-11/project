@@ -121,7 +121,7 @@ def voorvertoning(categorie):
     uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel=categorie)
     verzameling = []
     for uri in uris:
-        info = db.execute("SELECT id, image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
+        info = db.execute("SELECT id, image, label, popularity FROM cachen WHERE uri = :uri", uri=uri['uri'])
         # als er geen image of label aanwezig is
         if len(info) > 0 and info not in verzameling:
             verzameling.append(info[0])
