@@ -121,11 +121,19 @@ def voorvertoning(categorie):
     uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel=categorie)
     verzameling = []
     for uri in uris:
-        info = db.execute("SELECT id, image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
+        info = db.execute("SELECT id, image, label, popularity FROM cachen WHERE uri = :uri", uri=uri['uri'])
         # als er geen image of label aanwezig is
         if len(info) > 0 and info not in verzameling:
             verzameling.append(info[0])
     return verzameling
+
+
+def likes(verzameling):
+    aantalLikes = dict()
+    for element in verzameling[0]:
+        print(element)
+
+
 
 def fav_recipes(u_id):
     recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id= u_id)
@@ -167,9 +175,13 @@ def addOrDelete(recepten):
         if int(request.form.get("recipeID")) not in recepten:
             db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                         user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+            # update number of likes if recipe added to favorites
+            db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)
         else:
             db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
+            db.execute("UPDATE cachen SET popularity = popularity - :like WHERE id = :id", id=int(request.form.get("recipeID")), like=1)
     # if there are no recipes in favorites, add to favorites
     else:
         db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                     user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)

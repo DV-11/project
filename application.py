@@ -118,6 +118,7 @@ def register():
 @app.route("/balanced")
 def balanced():
     verzameling = voorvertoning("Balanced")
+    # likes(verzameling)
     return render_template("balanced.html", verzameling=verzameling)
 
 @app.route("/lowCarb")
