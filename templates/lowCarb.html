@@ -5,15 +5,30 @@
 {% endblock %}
 
 {% block main %}
-    <div>
+    <div class="row">
+
         <h1>Low Carb Recipes</h1>
-        {% for info in verzameling %}
-            <div style="float:left">
-                <a href="recept?id={{ info['id'] }}">
-                    <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
-                    <div class="tekst" >{{ info['label'] }}</div>
-                </a>
+    </div>
+    <div class ="row" >
+        <aside class="col-sm-3 sidenav" style="height: 1500px">
+            <div data-include="filter">
+
             </div>
+            <p>
+                Kip Yo
+            </p>
+        </aside>
+        <div style="margin-left:25%">
+
+        {% for info in verzameling %}
+
+                <aside class="col-sm-4" style="text-align:left">
+                    <a href="recept?id={{ info['id'] }}">
+                        <div class="thumbnail"><img src="{{ info['image'] }}" style="padding-bottom:10px" max-height=220px max-width=300px alt="recept">
+                        {{ info['label'] }}</div>
+                    </a>
+                </aside>
         {% endfor %}
+        </div>
     </div>
 {% endblock %}
