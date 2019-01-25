@@ -22,25 +22,25 @@ def balancedRecepten():
         cautions = recepten[i]['recipe']['cautions']
         calories = recepten[i]['recipe']['calories']
 
-        # # ubdate tabel cashen
-        # db.execute("INSERT INTO cachen (uri, url, label, image, calories) VALUES(:uri, :url, :label, :image, :calories)",
-        #             uri=uri, url=url, label=label, image=image, calories=calories)
+        # ubdate tabel cashen
+        db.execute("INSERT INTO cachen (uri, url, label, image, calories) VALUES(:uri, :url, :label, :image, :calories)",
+                    uri=uri, url=url, label=label, image=image, calories=calories)
 
-        # # benoem de waardes voor ingredients tabel
-        # for ingredient in range(len(ingredients)):
-        #     tekst = ingredients[ingredient]['text']
-        #     weight = ingredients[ingredient]['weight']
+        # benoem de waardes voor ingredients tabel
+        for ingredient in range(len(ingredients)):
+            tekst = ingredients[ingredient]['text']
+            weight = ingredients[ingredient]['weight']
 
-        #     # ubdate tabel ingredients
-        #     db.execute("INSERT INTO ingredients (uri, tekst, weight) VALUES(:uri, :tekst, :weight)",
-        #                 uri=uri, tekst=tekst, weight=weight)
+            # ubdate tabel ingredients
+            db.execute("INSERT INTO ingredients (uri, tekst, weight) VALUES(:uri, :tekst, :weight)",
+                        uri=uri, tekst=tekst, weight=weight)
 
-        # # benoem waardes voor tabel dietLabels
-        # for k in range(len(dietLabels)):
-        #     dietLabel = dietLabels[k]
+        # benoem waardes voor tabel dietLabels
+        for k in range(len(dietLabels)):
+            dietLabel = dietLabels[k]
 
-        #     # ubdate tabel dietLabels
-        #     db.execute("INSERT INTO dietLabels (uri, dietLabel) VALUES(:uri, :dietLabel)", uri=uri, dietLabel=dietLabel)
+            # ubdate tabel dietLabels
+            db.execute("INSERT INTO dietLabels (uri, dietLabel) VALUES(:uri, :dietLabel)", uri=uri, dietLabel=dietLabel)
 
         # benoem waardes voor cautions tabel
         for j in range(len(cautions)):
