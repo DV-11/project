@@ -21,6 +21,7 @@
 .border{
     border: 6px solid #ccff66;
     background-color: #ccff66;
+    text-align: center;
 }
 /*General*/
 
@@ -434,6 +435,7 @@ footer p{
 
 .tekst{
     width: 250px;
+    text-align: center;
 }
 
 .red{
