@@ -7,12 +7,21 @@
     width: 80%;
 }
 
+.link{
+    color: blue;
+    text-decoration: underline;
+}
+
 .content {
   padding: 0 18px;
   display: none;
   overflow: hidden;
 }
 
+.border{
+    border: 6px solid #ccff66;
+    background-color: #ccff66;
+}
 /*General*/
 
 /*Kleuren:*/
