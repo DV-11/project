@@ -7,7 +7,7 @@
 {% block main %}
      <form action="{{ url_for('recept') }}" method="post">
         <div>
-            <titel>{{ info.label }}</titel>
+            <h1 class="border">{{ info.label }}</h1>
             <div>
                 {% if session.user_id %}
                     <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
@@ -32,25 +32,25 @@
                     </div>
 
                 {% else %}
-                    <ref>
-                        <a href="login">Log in</a> or <a href="register">register</a> to save the recipe as favorite.
-                    </ref>
+                    <div>
+                        <a href="login" class="link">Log in</a> or <a href="register" class="link">register</a> to save the recipe as favorite.
+                    </div>
                 {% endif %}
             </div>
 
             <div><img src="{{ info.image }}" height=400px width=530px alt="Can't load picture"></div>
             <p>
-                Calories: {{ info.calories }}
+                <B>Calories:</B> {{ info.calories }}
             </p>
             <p>
-                <div>Ingredients:</div>
+                <div><B>Ingredients:</B></div>
                 {% for ingredient in ingredienten %}
                     <div>{{ ingredient.tekst }}</div>
                 {% endfor %}
             </p>
             <p>
-                <div>Cooking methode</div>
-                <div>For the cooking method, please follow <a href="{{ info.url }}" target="_blank"> this</a> link.</div>
+                <div><B>Cooking methode</B></div>
+                <div>For the cooking method, please follow <a href="{{ info.url }}" target="_blank" class="link"> this</a> link. The recipe will be opened in a new tab.</div>
             </p>
         </div>
     </form>
