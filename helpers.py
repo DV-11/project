@@ -3,7 +3,10 @@ import urllib.request
 
 from flask import redirect, render_template, request, session
 from functools import wraps
+from passlib.apps import custom_app_context as pwd_context
 from cs50 import SQL
+from passlib.context import CryptContext
+
 
 
 def apology(message, code=400):
@@ -123,7 +126,7 @@ def voorvertoning(categorie):
     for uri in uris:
         info = db.execute("SELECT id, image, label, popularity FROM cachen WHERE uri = :uri", uri=uri['uri'])
         # als er geen image of label aanwezig is
-        if len(info) > 0 and info not in verzameling:
+        if len(info) > 0:
             verzameling.append(info[0])
     return verzameling
 
@@ -185,3 +188,39 @@ def addOrDelete(recepten):
         db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                     user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
         db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)
+
+
+def loginCheck():
+    # query database for username
+    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+    # ensure username exists and password is correct
+    if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
+        return apology("invalid username and/or password")
+    return row
+
+
+def registerCheck():
+        # query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+        # ensure username doesn't already exist
+        if len(rows) == 1:
+            return apology("username already exists")
+
+        # ensure password is the same as passwordcheck
+        if request.form.get("password") != request.form.get("confirmation"):
+            return apology("passwords are not matching")
+
+
+def registerUser():
+        # encrypt password
+        myctx = CryptContext(schemes=["sha256_crypt"],
+                             sha256_crypt__default_rounds=80000)
+        hash = pwd_context.hash(request.form.get("password"))
+
+        # insert user into users
+        db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
+                    username=request.form.get("username"), hash=hash)
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        return rows
