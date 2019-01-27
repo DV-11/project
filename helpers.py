@@ -197,7 +197,7 @@ def loginCheck():
     # ensure username exists and password is correct
     if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
         return apology("invalid username and/or password")
-    return row
+    return rows
 
 
 def registerCheck():
