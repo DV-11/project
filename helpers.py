@@ -8,7 +8,6 @@ from cs50 import SQL
 from passlib.context import CryptContext
 
 
-
 def apology(message, code=400):
     """Renders message as an apology to user."""
     def escape(s):
@@ -113,15 +112,14 @@ def lookup(symbol):
         return None
 
 
-def usd(value):
-    """Formats value as USD."""
-    return f"${value:,.2f}"
-
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
+
 def voorvertoning(categorie):
-    verzameling = db.execute("SELECT id, image, label, popularity FROM cachen WHERE uri IN (SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel) ORDER BY popularity DESC", dietLabel=categorie)
+    verzameling = db.execute(
+        "SELECT id, image, label, popularity FROM cachen WHERE uri IN (SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel) ORDER BY popularity DESC",
+        dietLabel=categorie)
     return verzameling
 
 
@@ -131,10 +129,9 @@ def likes(verzameling):
         print(element)
 
 
-
 def fav_recipes(u_id):
-    recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id= u_id)
-    verzameling=[]
+    recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=u_id)
+    verzameling = []
     for i in range(len(recepten)):
         rec_id = recepten[i]['recipe_id']
         info = db.execute("SELECT * FROM cachen WHERE id = :id", id=rec_id)
@@ -161,27 +158,32 @@ def userInfo():
 def favRecipes():
     # select all the recipes that the user has in favorites
     receptenDict = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=session["user_id"])
-    recepten =[]
+    recepten = []
     for recept in range(len(receptenDict)):
         recepten.append(receptenDict[recept]['recipe_id'])
     return recepten
 
+
 def addOrDelete(recepten):
-    if len(recepten)>0:
+    if len(recepten) > 0:
         # if recipe not in favorites, add
         if int(request.form.get("recipeID")) not in recepten:
             db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                        user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+                       user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
             # update number of likes if recipe added to favorites
-            db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)
+            db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id",
+                       id=int(request.form.get("recipeID")), price=1)
         else:
+            # remove like if recipe removed from favorites
             db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
-            db.execute("UPDATE cachen SET popularity = popularity - :like WHERE id = :id", id=int(request.form.get("recipeID")), like=1)
+            db.execute("UPDATE cachen SET popularity = popularity - :like WHERE id = :id",
+                       id=int(request.form.get("recipeID")), like=1)
     # if there are no recipes in favorites, add to favorites
     else:
         db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
-                    user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
-        db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)
+                   user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id",
+                   id=int(request.form.get("recipeID")), price=1)
 
 
 def loginCheck():
@@ -195,26 +197,26 @@ def loginCheck():
 
 
 def registerCheck():
-        # query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+    # query database for username
+    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
-        # ensure username doesn't already exist
-        if len(rows) == 1:
-            return apology("username already exists")
+    # ensure username doesn't already exist
+    if len(rows) == 1:
+        return apology("username already exists")
 
-        # ensure password is the same as passwordcheck
-        if request.form.get("password") != request.form.get("confirmation"):
-            return apology("passwords are not matching")
+    # ensure password is the same as passwordcheck
+    if request.form.get("password") != request.form.get("confirmation"):
+        return apology("passwords are not matching")
 
 
 def registerUser():
-        # encrypt password
-        myctx = CryptContext(schemes=["sha256_crypt"],
-                             sha256_crypt__default_rounds=80000)
-        hash = pwd_context.hash(request.form.get("password"))
+    # encrypt password
+    myctx = CryptContext(schemes=["sha256_crypt"],
+                         sha256_crypt__default_rounds=80000)
+    hash = pwd_context.hash(request.form.get("password"))
 
-        # insert user into users
-        db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
-                    username=request.form.get("username"), hash=hash)
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-        return rows
+    # insert user into users
+    db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
+               username=request.form.get("username"), hash=hash)
+    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+    return rows
