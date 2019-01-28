@@ -29,6 +29,7 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -99,20 +100,24 @@ def balanced():
     # likes(verzameling)
     return render_template("balanced.html", verzameling=verzameling)
 
+
 @app.route("/lowCarb")
 def lowCarb():
     verzameling = voorvertoning("Low-Carb")
     return render_template("lowCarb.html", verzameling=verzameling)
+
 
 @app.route("/lowFat")
 def lowFat():
     verzameling = voorvertoning("Low-Fat")
     return render_template("lowFat.html", verzameling=verzameling)
 
+
 @app.route("/highProtein")
 def highProtein():
     verzameling = voorvertoning("High-Protein")
     return render_template("highProtein.html", verzameling=verzameling)
+
 
 @app.route("/recept", methods=["GET", "POST"])
 def recept():
@@ -131,10 +136,10 @@ def recept():
             recepten = favRecipes()
 
             # make button red if current recipe is in favorites
-            isFavorite=False
-            if len(recepten)>0:
+            isFavorite = False
+            if len(recepten) > 0:
                 if int(request.args.get('id')) in recepten:
-                    isFavorite=True
+                    isFavorite = True
 
             # select all the user-ids, usernames who had the selected recipe in their favorites
             gebruikers = userInfo()
@@ -161,17 +166,17 @@ def personal_profile():
     uname = rows[0]['username']
     count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=session['user_id']))
     verzameling = fav_recipes(session['user_id'])
-    return render_template("personal_profile.html", username = uname, ammount = count, verzameling = verzameling)
+    return render_template("personal_profile.html", username=uname, ammount=count, verzameling=verzameling)
 
 
-@app.route("/other_profile", methods=["GET","POST"])
+@app.route("/other_profile", methods=["GET", "POST"])
 def other_profile():
     other_id = request.args.get('id')
     rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=other_id)
     uname = rows[0]['username']
     count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=other_id))
     verzameling = fav_recipes(other_id)
-    return render_template("other_profile.html", username = uname, ammount = count, verzameling = verzameling)
+    return render_template("other_profile.html", username=uname, ammount=count, verzameling=verzameling)
 
 
 @app.route("/settings", methods=["GET", "POST"])
@@ -194,5 +199,4 @@ def settings():
         return render_template("personal_profile.html")
     else:
         return render_template("settings.html")
-
 
