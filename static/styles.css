@@ -1,3 +1,4 @@
+
 .container
 {
     text-align: center;
@@ -45,8 +46,18 @@ ul{
     list-style-type: none;
 }
 
-body{
-    margin:0;
+html {
+    min-height: 100%;
+    display: flex;
+}
+
+body {
+    flex: 1;
+    background-color:#f9fafa;
+}
+
+hr{
+    margin: 10px 0 20px 0;
 }
 
 .sidenav{
@@ -58,7 +69,12 @@ body{
 }
 
 .row{
-    text-align:center;
+    text-align:left;
+
+}
+
+.btn{
+    background-color:transparent;
 }
 
 main .form-control
@@ -88,11 +104,11 @@ main .form-control
 }
 
 main{
-    padding-top: 65px;
-    margin-bottom:70px;
-
+    margin: 65px 5vw 40px 5vw;
+    background-color: white;
+    min-height:85vh;
+    padding-bottom:10px;
 }
-
 
 main img
 {
@@ -157,7 +173,6 @@ main td
 /*Header*/
 
 .navbar{
-    position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -361,7 +376,7 @@ input[type=checkbox]:checked:disabled + label:before {
     text-align: left !important;
 }
 
-button
+.subbutton
 {
 	position: relative;
 	display: block;
@@ -381,7 +396,7 @@ button
 	margin-bottom: 10px;
 }
 
-button:hover{
+.subbutton:hover{
 	background: #8e8e23;
 }
 
@@ -412,6 +427,36 @@ fieldset{
     width:50%;
     float:left;
     text-align:center;
+}
+
+/*Recipe Page*/
+
+.favbutton{
+  background-image: url(images/favempty.png);
+  background-repeat: no-repeat;
+  background-position: contain;
+  height: 40px;
+  width: 40px;
+  padding-left:45px;
+  border: none;
+}
+
+.unfavbutton{
+  background-image: url(images/favfull.png);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  padding-left:45px;
+  height: 40px;
+  width: 40px;
+  border: none;
+}
+
+.unfavbutton:hover{
+    opacity:0.7;
+}
+
+.favbutton:hover{
+    opacity:0.7;
 }
 
 /*Footer*/
