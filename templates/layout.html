@@ -4,6 +4,19 @@
 
     <head>
 
+        <!--jQuery-->
+        <script src="jquery.js"></script>
+        <!--Filter-->
+        <script>
+          $(function(){
+            var includes = $('[data-include]');
+            jQuery.each(includes, function(){
+              var file = 'templates/' + $(this).data('include') + '.html';
+              $(this).load(file);
+            });
+          });
+        </script>
+
         <!--Favicon-->
         <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/Favicon.png') }}"/>
 
@@ -73,7 +86,7 @@
         </header>
 
 
-        <div class="container main">
+        <div>
 
         <!--    {% if get_flashed_messages() %}-->
         <!--        <header>-->

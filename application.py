@@ -43,19 +43,13 @@ def login():
 
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-
-        # query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-
-        # ensure username exists and password is correct
-        if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return apology("invalid username and/or password")
+        # check if username and password are matching
+        rows = loginCheck()
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
-        # return redirect(url_for("index"))
         return render_template("index.html")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
@@ -82,27 +76,11 @@ def register():
 
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+        # check if username is availible and passwords are matching
+        registerCheck()
 
-        # query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-
-        # ensure username doesn't already exist
-        if len(rows) == 1:
-            return apology("username already exists")
-
-        # ensure password is the same as passwordcheck
-        if request.form.get("password") != request.form.get("confirmation"):
-            return apology("passwords are not matching")
-
-        # encrypt password
-        myctx = CryptContext(schemes=["sha256_crypt"],
-                             sha256_crypt__default_rounds=80000)
-        hash = pwd_context.hash(request.form.get("password"))
-
-        # insert user into users
-        db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
-                    username=request.form.get("username"), hash=hash)
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        # register the users information
+        rows = registerUser()
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -118,6 +96,7 @@ def register():
 @app.route("/balanced")
 def balanced():
     verzameling = voorvertoning("Balanced")
+    # likes(verzameling)
     return render_template("balanced.html", verzameling=verzameling)
 
 @app.route("/lowCarb")

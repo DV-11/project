@@ -1,10 +1,15 @@
-.container
-{
+/*.container*/
+/*{*/
     /* center contents */
-    margin: auto;
-    text-align: center;
+/*    margin: auto;*/
+/*    text-align: center;*/
     /*overflow: hidden;*/
-    width: 80%;
+/*    width: 80%;*/
+/*}*/
+
+.link{
+    color: blue;
+    text-decoration: underline;
 }
 
 .content {
@@ -13,6 +18,11 @@
   overflow: hidden;
 }
 
+.border{
+    border: 6px solid #ccff66;
+    background-color: #ccff66;
+    text-align: center;
+}
 /*General*/
 
 /*Kleuren:*/
@@ -27,6 +37,7 @@ h1, h2, h3, h4, p{
 a{
     font-family: Tahoma, Geneva, sans-serif;
     color: black;
+    text-decoration: underline;
 }
 
 a:hover{
@@ -40,6 +51,19 @@ ul{
 
 body{
     margin:0;
+}
+
+.sidenav{
+    height: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+
+}
+
+.row{
+    text-align:center;
 }
 
 main .form-control
@@ -71,7 +95,9 @@ main .form-control
 main{
     padding-top: 65px;
     margin-bottom:70px;
+
 }
+
 
 main img
 {
@@ -83,6 +109,53 @@ main td
 {
     /* left-align tables' cells */
     text-align: left;
+}
+
+.imagebox {
+  background: black;
+  padding: 0px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.imagebox img {
+  opacity: 0.5;
+  transition: 0.5s opacity;
+}
+
+.imagebox .imagebox-desc {
+  background-color: rgba(0, 0, 0, 0.6);
+  bottom: 0px;
+  color: white;
+  font-size: 1.2em;
+  left: 0px;
+  padding: 10px 15px;
+  position: absolute;
+  transition: 0.5s padding;
+  text-align: center;
+  width: 100%;
+}
+
+.imagebox:hover img {
+  opacity: 1;
+}
+
+.imagebox:hover .imagebox-desc {
+  padding-bottom: 10%;
+}
+
+.imagebox:hover{
+  padding: 0 -5% 0 -5%;
+}
+
+
+.col-md-3{
+    padding:0;
+}
+
+.thumbnail:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
 /*Header*/
@@ -109,6 +182,7 @@ main td
 
 
 header a{
+    font-family: 'Roboto', sans-serif;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px;
@@ -361,6 +435,7 @@ footer p{
 
 .tekst{
     width: 250px;
+    text-align: center;
 }
 
 .red{

@@ -3,7 +3,10 @@ import urllib.request
 
 from flask import redirect, render_template, request, session
 from functools import wraps
+from passlib.apps import custom_app_context as pwd_context
 from cs50 import SQL
+from passlib.context import CryptContext
+
 
 
 def apology(message, code=400):
@@ -121,11 +124,19 @@ def voorvertoning(categorie):
     uris = db.execute("SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel", dietLabel=categorie)
     verzameling = []
     for uri in uris:
-        info = db.execute("SELECT id, image, label FROM cachen WHERE uri = :uri", uri=uri['uri'])
+        info = db.execute("SELECT id, image, label, popularity FROM cachen WHERE uri = :uri", uri=uri['uri'])
         # als er geen image of label aanwezig is
-        if len(info) > 0 and info not in verzameling:
+        if len(info) > 0:
             verzameling.append(info[0])
     return verzameling
+
+
+def likes(verzameling):
+    aantalLikes = dict()
+    for element in verzameling[0]:
+        print(element)
+
+
 
 def fav_recipes(u_id):
     recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id= u_id)
@@ -167,9 +178,49 @@ def addOrDelete(recepten):
         if int(request.form.get("recipeID")) not in recepten:
             db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                         user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+            # update number of likes if recipe added to favorites
+            db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)
         else:
             db.execute("DELETE FROM favorites WHERE recipe_id = :recipe_id", recipe_id=int(request.form.get("recipeID")))
+            db.execute("UPDATE cachen SET popularity = popularity - :like WHERE id = :id", id=int(request.form.get("recipeID")), like=1)
     # if there are no recipes in favorites, add to favorites
     else:
         db.execute("INSERT INTO favorites (user_id, recipe_id) VALUES(:user_id, :recipe_id)",
                     user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
+        db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id", id=int(request.form.get("recipeID")), price=1)
+
+
+def loginCheck():
+    # query database for username
+    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+    # ensure username exists and password is correct
+    if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
+        return apology("invalid username and/or password")
+    return rows
+
+
+def registerCheck():
+        # query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+        # ensure username doesn't already exist
+        if len(rows) == 1:
+            return apology("username already exists")
+
+        # ensure password is the same as passwordcheck
+        if request.form.get("password") != request.form.get("confirmation"):
+            return apology("passwords are not matching")
+
+
+def registerUser():
+        # encrypt password
+        myctx = CryptContext(schemes=["sha256_crypt"],
+                             sha256_crypt__default_rounds=80000)
+        hash = pwd_context.hash(request.form.get("password"))
+
+        # insert user into users
+        db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
+                    username=request.form.get("username"), hash=hash)
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        return rows
