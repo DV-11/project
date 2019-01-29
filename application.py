@@ -77,6 +77,11 @@ def register():
 
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        # ensure username doesn't already exist
+        if len(rows) == 1:
+            return render_template("register_fail.html")
         # check if username is availible and passwords are matching
         registerCheck()
 
@@ -91,6 +96,39 @@ def register():
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
+        check = len(db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username")))
+        return render_template("register.html")
+
+
+@app.route("/register_fail", methods=["GET", "POST"])
+def register_fail():
+    """Register user."""
+    # forget any user_id
+    session.clear()
+
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        # ensure username doesn't already exist
+        if len(rows) == 1:
+            return render_template("register_fail.html", error="Username already taken")
+        # check if username is availible and passwords are matching
+        if request.form.get("password") != request.form.get("confirmation"):
+            return render_template("register_fail.html", error="Password and confirmation do not match")
+
+        # register the users information
+        rows = registerUser()
+
+        # remember which user has logged in
+        session["user_id"] = rows[0]["id"]
+
+        # redirect user to home page
+        return redirect(url_for("index"))
+
+    # else if user reached route via GET (as by clicking a link or via redirect)
+    else:
+        check = len(db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username")))
         return render_template("register.html")
 
 
