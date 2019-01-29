@@ -252,12 +252,33 @@ def settings():
     if request.method == "POST":
 
         if request.form.get("new_password") != request.form.get("confirmation"):
-            return apology("confirmation does not match")
+            return render_template("settings_fail.html", error="Passowrd and confirmation do not match")
 
         rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
 
         if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
-            return apology("incorrect old password")
+            return render_template("settings_fail.html", error="Incorrect old password")
+
+        hash = pwd_context.hash(request.form.get("new_password"))
+
+        db.execute("UPDATE users SET hash=:hash", hash=hash)
+
+        return render_template("personal_profile.html")
+    else:
+        return render_template("settings.html")
+
+@app.route("/settings_fail", methods=["GET", "POST"])
+def settings_fail():
+
+    if request.method == "POST":
+
+        if request.form.get("new_password") != request.form.get("confirmation"):
+            return render_template("settings_fail.html", error="Passowrd and confirmation do not match")
+
+        rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
+
+        if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
+            return render_template("settings_fail.html", error="Incorrect old password")
 
         hash = pwd_context.hash(request.form.get("new_password"))
 
