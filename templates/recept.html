@@ -5,23 +5,28 @@
 {% endblock %}
 
 {% block main %}
-     <form action="{{ url_for('recept') }}" method="post">
-        <div>
-            <h1 class="border">{{ info.label }}</h1>
-            <div>
+        <div class ="container">
+            <form action="{{ url_for('recept') }}" method="post">
+
+            <div class="recipe col-md-6">
+                <img src="{{ info.image }}" alt="Can't load picture" style="padding:27px 0px">
+                <div class ="row">
                 {% if session.user_id %}
                     <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
+                    <div class="col-md-6">
                     {% if isFavorite %}
                         <fav>
-                            <button type="submit" class=red id="favorite">Remove from favorites</button>
+                            <button  type="submit" id="favorite" class="btn"><i class="fa fa-heart"style="color:red;padding-right:10px;"></i>Remove from favorites</button>
                         </fav>
                     {% else %}
                         <fav>
-                            <button type="submit" id="favorite">Add to favorites</button>
+                            <button  type="submit" id="favorite" class="btn"><i class="fa fa-heart"style="padding-right:10px;"></i>Add to favorites</button>
                         </fav>
                     {% endif %}
 
-                    <div>
+                    </div>
+
+                    <div ass="col-md-6" style="width:50%;float:left">
                         <div>{{ amount }} users added this recipe to their favorites!</div>
                         <div>Visit someones profile to see their favorite recipes.</div>
                         {% for gebruiker in gebruikers %}
@@ -32,26 +37,49 @@
                     </div>
 
                 {% else %}
-                    <div>
+                    <div class="col-md-12">
                         <a href="login" class="link">Log in</a> or <a href="register" class="link">register</a> to save the recipe as favorite.
                     </div>
                 {% endif %}
+                </div>
             </div>
 
-            <div><img src="{{ info.image }}" height=400px width=530px alt="Can't load picture"></div>
-            <p>
-                <B>Calories:</B> {{ info.calories }}
-            </p>
-            <p>
-                <div><B>Ingredients:</B></div>
-                {% for ingredient in ingredienten %}
-                    <div>{{ ingredient.tekst }}</div>
-                {% endfor %}
-            </p>
-            <p>
-                <div><B>Cooking methode</B></div>
-                <div>For the cooking method, please follow <a href="{{ info.url }}" target="_blank" class="link"> this</a> link. The recipe will be opened in a new tab.</div>
-            </p>
-        </div>
-    </form>
+            <div class="recipeinfo col-md-6">
+                <h1>{{ info.label }}</h1>
+                <br><br>
+                <ul>
+                    <li class="row">
+                        <p class="col-md-3" style="text-align:left;">
+                            Calories:
+                        </p>
+                        <p class="col-md-9" style="text-align:left;">
+                            {{ info.calories }}
+                        </p>
+                    </li>
+                    <hr>
+                    <li class="row">
+                        <p class="col-md-3">
+                            Ingredients:
+                        </p>
+                        <p class="col-md-9">
+                            {% for ingredient in ingredienten %}
+                            - {{ ingredient.tekst }}
+                            <br>
+                            {% endfor %}
+                        </p>
+                    </li>
+                    <hr>
+                    <li class="row">
+                        <p class="col-md-3">
+                            Cooking method:
+                        </p>
+                        <p class="col-md-9">
+                            For the cooking method, please follow <a href="{{ info.url }}" target="_blank" class="link"> this</a> link. The recipe will be opened in a new tab.
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+        </form>
+    </div>
 {% endblock %}
