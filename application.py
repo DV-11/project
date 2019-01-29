@@ -82,8 +82,6 @@ def register():
         # ensure username doesn't already exist
         if len(rows) == 1:
             return render_template("register_fail.html")
-        # check if username is availible and passwords are matching
-        registerCheck()
 
         # register the users information
         rows = registerUser()
