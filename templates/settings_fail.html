@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+<div class="container">
+
+    <div>
+        <h1>Change Password</h1>
+    <div>
+    <form action="{{ url_for('settings_fail') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="old_password" placeholder="Old Password" type="password" required/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="new_password" placeholder="New Password" type="password" id="password" required/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="confirmation" placeholder="Confirm New Password" type="password" id="confirmation" onkeyup="passCheck();" required/>
+            </div>
+            <div class="form-group">
+                <button class="subbutton" type="submit">Change Password</button>
+            </div>
+            <script src = "{{ url_for('static', filename='checks.js') }}"></script>
+            <span id='message'></span>
+            <p style="color:red"> {{ error }} </p>
+
+        </fieldset>
+    </form>
+    <div>
+        <a href="{{ url_for('personal_profile') }}">Return</a>
+    </div>
+</div>
+{% endblock %}
