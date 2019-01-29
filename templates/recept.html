@@ -29,6 +29,9 @@
                     <div class="col-md-6" >
                         <div>{{ amount }} users added this recipe to their favorites!</div>
                         <div>Visit someones profile to see their favorite recipes.</div>
+                    <div ass="col-md-6">
+                        <h4><B>{{ amount }} users added this recipe to their favorites!</B></h4>
+                        <div><I>Click on a user to visit their profile and see their favorite recipes.</I></div>
                         {% for gebruiker in gebruikers %}
                         <div>
                             <a href="other_profile?id={{ gebruiker.id }}">{{ gebruiker.username }}</a>
@@ -49,8 +52,12 @@
                 <br><br>
                 <ul>
                     <li class="row">
+
                         <p class="col-md-3">
                             Calories:
+
+                        <p class="col-md-3">
+                            <B>Calories:</B>
                         </p>
                         <p class="col-md-9">
                             {{ info.calories }}
@@ -59,7 +66,7 @@
                     <hr>
                     <li class="row">
                         <p class="col-md-3">
-                            Ingredients:
+                            <B>Ingredients:</B>
                         </p>
                         <p class="col-md-9">
                             {% for ingredient in ingredienten %}
@@ -71,7 +78,7 @@
                     <hr>
                     <li class="row">
                         <p class="col-md-3">
-                            Cooking method:
+                            <B>Cooking method:</B>
                         </p>
                         <p class="col-md-9">
                             For the cooking method, please follow <a href="{{ info.url }}" target="_blank" class="link"> this</a> link. The recipe will be opened in a new tab.

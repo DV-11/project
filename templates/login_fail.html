@@ -9,7 +9,7 @@
     <div>
         <h1>Log In</h1>
     <div>
-    <form action="{{ url_for('login') }}" method="post">
+    <form action="{{ url_for('login_fail') }}" method="post">
         <fieldset>
             <div class="form-group">
                 <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" required/>
@@ -27,5 +27,6 @@
             </div>
         </fieldset>
     </form>
+    <p style="color:red">Invalid username and/or password</p>
 </div>
 {% endblock %}

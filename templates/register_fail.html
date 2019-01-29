@@ -9,7 +9,7 @@
     <div>
         <h1>Register</h1>
     <div>
-    <form action="{{ url_for('register') }}" method="post">
+    <form action="{{ url_for('register_fail') }}" method="post">
         <fieldset>
             <div class="form-group">
                 <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" required/>
@@ -26,6 +26,7 @@
         </fieldset>
         <script src = "{{ url_for('static', filename='checks.js') }}"></script>
         <span id='message'></span>
+        <p style="color:red">{{ error }}</p>
 
     </form>
 </div>

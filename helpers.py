@@ -8,21 +8,6 @@ from cs50 import SQL
 from passlib.context import CryptContext
 
 
-def apology(message, code=400):
-    """Renders message as an apology to user."""
-    def escape(s):
-        """
-        Escape special characters.
-
-        https://github.com/jacebrowning/memegen#special-characters
-        """
-        for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
-                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
-            s = s.replace(old, new)
-        return s
-    return render_template("apology.html", top=code, bottom=escape(message)), code
-
-
 def login_required(f):
     """
     Decorate routes to require login.
@@ -36,101 +21,30 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
-def lookup(symbol):
-    """Look up quote for symbol."""
-
-    # reject symbol if it starts with caret
-    if symbol.startswith("^"):
-        return None
-
-    # reject symbol if it contains comma
-    if "," in symbol:
-        return None
-
-    # query Yahoo for quote
-    # http://stackoverflow.com/a/21351911
-    try:
-
-        # GET CSV
-        url = f"http://download.finance.yahoo.com/d/quotes.csv?f=snl1&s={symbol}"
-        webpage = urllib.request.urlopen(url)
-
-        # read CSV
-        datareader = csv.reader(webpage.read().decode("utf-8").splitlines())
-
-        # parse first row
-        row = next(datareader)
-
-        # ensure stock exists
-        try:
-            price = float(row[2])
-        except:
-            return None
-
-        # return stock's name (as a str), price (as a float), and (uppercased) symbol (as a str)
-        return {
-            "name": row[1],
-            "price": price,
-            "symbol": row[0].upper()
-        }
-
-    except:
-        pass
-
-    # query Alpha Vantage for quote instead
-    # https://www.alphavantage.co/documentation/
-    try:
-
-        # GET CSV
-        url = f"https://www.alphavantage.co/query?apikey=NAJXWIA8D6VN6A3K&datatype=csv&function=TIME_SERIES_INTRADAY&interval=1min&symbol={symbol}"
-        webpage = urllib.request.urlopen(url)
-
-        # parse CSV
-        datareader = csv.reader(webpage.read().decode("utf-8").splitlines())
-
-        # ignore first row
-        next(datareader)
-
-        # parse second row
-        row = next(datareader)
-
-        # ensure stock exists
-        try:
-            price = float(row[4])
-        except:
-            return None
-
-        # return stock's name (as a str), price (as a float), and (uppercased) symbol (as a str)
-        return {
-            "name": symbol.upper(),  # for backward compatibility with Yahoo
-            "price": price,
-            "symbol": symbol.upper()
-        }
-
-    except:
-        return None
-
-
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
 
+# bundles indivual recipes by categoty for display
 def voorvertoning(categorie):
     verzameling = db.execute(
         "SELECT id, image, label, popularity FROM cachen WHERE uri IN (SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel) ORDER BY popularity DESC",
         dietLabel=categorie)
     return verzameling
 
-
+# count ammount of likes for a recipe
 def likes(verzameling):
     aantalLikes = dict()
     for element in verzameling[0]:
         print(element)
 
-
+# bundles favourite recipes for display
 def fav_recipes(u_id):
+
+    # get recipes from favourites
     recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=u_id)
+
+    # bundle them
     verzameling = []
     for i in range(len(recepten)):
         rec_id = recepten[i]['recipe_id']
@@ -184,29 +98,6 @@ def addOrDelete(recepten):
                    user_id=session["user_id"], recipe_id=int(request.form.get("recipeID")))
         db.execute("UPDATE cachen SET popularity = popularity + :price WHERE id = :id",
                    id=int(request.form.get("recipeID")), price=1)
-
-
-def loginCheck():
-    # query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-
-    # ensure username exists and password is correct
-    if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-        return apology("invalid username and/or password")
-    return rows
-
-
-def registerCheck():
-    # query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-
-    # ensure username doesn't already exist
-    if len(rows) == 1:
-        return apology("username already exists")
-
-    # ensure password is the same as passwordcheck
-    if request.form.get("password") != request.form.get("confirmation"):
-        return apology("passwords are not matching")
 
 
 def registerUser():
