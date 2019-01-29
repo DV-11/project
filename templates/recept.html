@@ -48,9 +48,9 @@
             <div class="recipe col-md-6">
                 <img src="{{ info.image }}" alt="Can't load picture" style="padding:27px 0px">
                 <div class ="row">
+                <center>
                 {% if session.user_id %}
                     <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
-                    <div class="col-md-6">
                     {% if isFavorite %}
                         <fav>
                             <button  type="submit" id="favorite" class="btn"><i class="fa fa-heart"style="color:red;padding-right:10px;"></i>Remove from favorites</button>
@@ -61,23 +61,20 @@
                         </fav>
                     {% endif %}
 
+                    <h4><B>{{ amount }} users added this recipe to their favorites!</B></h4>
+                    <div><I>Click on a user to visit their profile and see their favorite recipes.</I></div>
+                    {% for gebruiker in gebruikers %}
+                    <div>
+                        <a href="other_profile?id={{ gebruiker.id }}">{{ gebruiker.username }}</a>
                     </div>
-
-                    <div class="col-md-6">
-                        <h4><B>{{ amount }} users added this recipe to their favorites!</B></h4>
-                        <div><I>Click on a user to visit their profile and see their favorite recipes.</I></div>
-                        {% for gebruiker in gebruikers %}
-                        <div>
-                            <a href="other_profile?id={{ gebruiker.id }}">{{ gebruiker.username }}</a>
-                        </div>
-                        {% endfor %}
-                    </div>
+                    {% endfor %}
 
                 {% else %}
                     <div class="col-md-12">
                         <a href="login" class="link">Log in</a> or <a href="register" class="link">register</a> to save the recipe as favorite.
                     </div>
                 {% endif %}
+                </center>
                 </div>
             </div>
         </form>

@@ -14,16 +14,23 @@
         </div>
     </div>
     <div class="favrecbox">
-        <h1>Favourite Recipes</h1>
+        <h1>My Favourite Recipes</h1>
         <p> You have {{ ammount }} favourite recipes. </p>
 
        {% for info in verzameling %}
         <div class="col-sm-6">
-        <a href="recept?id={{ info.id }}">
-            <div class="thumbnail"><img src="{{ info['image'] }}" height=220px width=300px alt="image">
-                <p>{{ info.label }}</p>
+            <div class="thumbnail">
+                <a href="recept?id={{ info.id }}">
+                    <img src="{{ info['image'] }}" height=220px width=300px alt="image">
+                    <p>{{ info.label }}</p>
+                </a>
+                <form action="{{ url_for('personal_profile') }}" method="post">
+                    <fav>
+                        <input type="hidden" id="recipeID" name="recipeID" value="{{ info.id }}">
+                        <button  type="submit" id="favorite" class="btn"><i class="fa fa-heart"style="color:red;padding-right:10px;"></i>Remove from favorites</button>
+                    </fav>
+                </form>
             </div>
-        <a>
         </div>
         {% endfor %}
     </div>

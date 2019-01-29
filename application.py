@@ -226,20 +226,27 @@ def recept():
         return redirect(url_for("personal_profile"))
 
 
-@app.route("/personal_profile")
+@app.route("/personal_profile", methods=["GET", "POST"])
 def personal_profile():
+    if request.method == "GET":
+        # get user information
+        rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
+        uname = rows[0]['username']
 
-    # get user information
-    rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
-    uname = rows[0]['username']
+        # get favourite recipes
+        count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=session['user_id']))
+        verzameling = fav_recipes(session['user_id'])
+        return render_template("personal_profile.html", username=uname, ammount=count, verzameling=verzameling)
+    else:
+        # select al recipes the user has in favorites
+        recepten = favRecipes()
 
-    # get favourite recipes
-    count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=session['user_id']))
-    verzameling = fav_recipes(session['user_id'])
-    return render_template("personal_profile.html", username=uname, ammount=count, verzameling=verzameling)
+        # delete recipe from favorites
+        addOrDelete(recepten)
+        return redirect(url_for("personal_profile"))
 
 
-@app.route("/other_profile", methods=["GET", "POST"])
+@app.route("/other_profile")
 def other_profile():
 
     # get user information
