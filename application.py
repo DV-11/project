@@ -81,8 +81,10 @@ def register():
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
         # ensure username doesn't already exist
         if len(rows) == 1:
-            return render_template("register_fail.html")
+            return render_template("register_fail.html", error="Username already taken")
 
+        if request.form.get("password") != request.form.get("confirmation"):
+            return render_template("register_fail.html", error="Password and confirmation do not match")
         # register the users information
         rows = registerUser()
 
