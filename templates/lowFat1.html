@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Low fat recipes
+{% endblock %}
+
+{% block main %}
+    <div>
+        <div id="wrapper">
+            <h1 class="border">Low Fat Recipes</h1>
+            <div id="scroll-content">
+                {% for info in verzameling %}
+                    <div class="fields" style=float:left>
+                        <a href="recept?id={{ info['id'] }}">
+                            <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
+                            <div class="tekst" >{{ info['label'] }}</div>
+                        </a>
+                    </div>
+                {% endfor %}
+                <script src = "{{ url_for('static', filename='scroll.js') }}"></script>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="button" id="button">
+            <button class="button" onclick="Showmore()">Show more</button>
+        </div>
+    </div>
+{% endblock %}

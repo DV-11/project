@@ -1,32 +1,5 @@
-{% extends "layout.html" %}
+{% extends "categories.html" %}
 
-{% block title %}
-    Balanced recipes
-{% endblock %}
-
-{% block main %}
-    <div>
-        <div id="wrapper">
-            <h1 class="border">Balanced Recipes</h1>
-            <div id="scroll-content">
-                {% for info in verzameling %}
-                    <div class="fields" style=float:left>
-                        <a href="recept?id={{ info['id'] }}">
-                            <div><img src="{{ info['image'] }}" height=220px width=300px alt="recept"></div>
-                            <div class="tekst">
-                                <div>{{ info.label }}</div>
-                                <div>{{ info.popularity }} &hearts;</div>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-                <script src = "{{ url_for('static', filename='scroll.js') }}"></script>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="button">
-            <button class="button" onclick="Showmore()">Show more</button>
-        </div>
-    </div>
+{% block name %}
+    Balanced Recipes
 {% endblock %}

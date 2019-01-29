@@ -1,41 +1,5 @@
-{% extends "layout.html" %}
+{% extends "categories.html" %}
 
-{% block title %}
-    Low carb recipes
-{% endblock %}
-
-{% block main %}
-    <div class="container">
-
-    <div class="row">
-        <h1 class="border">Low Carb Recipes</h1>
-    </div>
-    <div class ="row" >
-        <div id="wrapper">
-        <div id="scroll-content">
-
-        {% for info in verzameling %}
-
-                <aside class="col-sm-3" style="text-align:left">
-                    <a href="recept?id={{ info.id }}">
-                        <div class="thumbnail">
-                            <img src="{{ info.image }}" style="padding-bottom:22px" max-height=220px max-width=300px alt="recept">
-                            <div class="row tekst" style="padding:0 12%">
-                                <div>{{ info.label }}</div>
-                                <div>{{ info.popularity }} &hearts;</div>
-                            </div>
-                        </div>
-                    </a>
-                </aside>
-        {% endfor %}
-        <script src = "{{ url_for('static', filename='scroll.js') }}"></script>
-        </div>
-        </div>
-    </div>
-</div>
-<div>
-    <div>
-        <button class="subbutton" onclick="Showmore()">Show more</button>
-    </div>
-</div>
+{% block name %}
+    Low Carb Recipes
 {% endblock %}
