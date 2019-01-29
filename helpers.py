@@ -25,21 +25,26 @@ def login_required(f):
 db = SQL("sqlite:///finance.db")
 
 
+# bundles indivual recipes by categoty for display
 def voorvertoning(categorie):
     verzameling = db.execute(
         "SELECT id, image, label, popularity FROM cachen WHERE uri IN (SELECT uri FROM dietLabels WHERE dietLabel = :dietLabel) ORDER BY popularity DESC",
         dietLabel=categorie)
     return verzameling
 
-
+# count ammount of likes for a recipe
 def likes(verzameling):
     aantalLikes = dict()
     for element in verzameling[0]:
         print(element)
 
-
+# bundles favourite recipes for display
 def fav_recipes(u_id):
+
+    # get recipes from favourites
     recepten = db.execute("SELECT recipe_id FROM favorites WHERE user_id = :user_id", user_id=u_id)
+
+    # bundle them
     verzameling = []
     for i in range(len(recepten)):
         rec_id = recepten[i]['recipe_id']
