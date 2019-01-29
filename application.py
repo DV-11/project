@@ -274,7 +274,7 @@ def settings():
         # update password
         db.execute("UPDATE users SET hash=:hash", hash=hash)
 
-        return render_template("personal_profile.html")
+        return redirect(url_for("personal_profile"))
     else:
         user_id = session['user_id']
         return render_template("settings.html", user_id=user_id)
