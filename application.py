@@ -229,7 +229,7 @@ def recept():
 
         # delete if recipe already in favorites, otherwise add to favorites
         addOrDelete(recepten)
-        return redirect(url_for("index"))
+        return redirect(url_for("personal_profile"))
 
 
 @app.route("/personal_profile")
