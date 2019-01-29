@@ -77,9 +77,11 @@ def login_fail():
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
             return render_template("login_fail.html")
 
+        # stay loged in
         else:
             session["user_id"] = rows[0]["id"]
 
+        # redirect to index
         return render_template("index.html")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
@@ -112,8 +114,10 @@ def register():
         if len(rows) == 1:
             return render_template("register_fail.html", error="Username already taken")
 
+        # check that password and confirmation matches
         if request.form.get("password") != request.form.get("confirmation"):
             return render_template("register_fail.html", error="Password and confirmation do not match")
+
         # register the users information
         rows = registerUser()
 
@@ -142,7 +146,7 @@ def register_fail():
         # ensure username doesn't already exist
         if len(rows) == 1:
             return render_template("register_fail.html", error="Username already taken")
-        # check if username is availible and passwords are matching
+        # check that password and confirmation match
         if request.form.get("password") != request.form.get("confirmation"):
             return render_template("register_fail.html", error="Password and confirmation do not match")
 
@@ -161,25 +165,26 @@ def register_fail():
         return render_template("register.html")
 
 
+# display balanced recipes
 @app.route("/balanced")
 def balanced():
     verzameling = voorvertoning("Balanced")
     # likes(verzameling)
     return render_template("balanced.html", verzameling=verzameling)
 
-
+# display low carb recipes
 @app.route("/lowCarb")
 def lowCarb():
     verzameling = voorvertoning("Low-Carb")
     return render_template("lowCarb.html", verzameling=verzameling)
 
-
+# display low fat recipes
 @app.route("/lowFat")
 def lowFat():
     verzameling = voorvertoning("Low-Fat")
     return render_template("lowFat.html", verzameling=verzameling)
 
-
+# display high protein recipes
 @app.route("/highProtein")
 def highProtein():
     verzameling = voorvertoning("High-Protein")
@@ -229,8 +234,12 @@ def recept():
 
 @app.route("/personal_profile")
 def personal_profile():
+
+    # get user information
     rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
     uname = rows[0]['username']
+
+    # get favourite recipes
     count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=session['user_id']))
     verzameling = fav_recipes(session['user_id'])
     return render_template("personal_profile.html", username=uname, ammount=count, verzameling=verzameling)
@@ -238,9 +247,13 @@ def personal_profile():
 
 @app.route("/other_profile", methods=["GET", "POST"])
 def other_profile():
+
+    # get user information
     other_id = request.args.get('id')
     rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=other_id)
     uname = rows[0]['username']
+
+    # get personal favourites
     count = len(db.execute("SELECT * FROM favorites WHERE user_id = :user_id", user_id=other_id))
     verzameling = fav_recipes(other_id)
     return render_template("other_profile.html", username=uname, ammount=count, verzameling=verzameling)
@@ -251,37 +264,47 @@ def settings():
 
     if request.method == "POST":
 
+        # check that passowrd and confirmation match
         if request.form.get("new_password") != request.form.get("confirmation"):
             return render_template("settings_fail.html", error="Passowrd and confirmation do not match")
 
         rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
 
+        # check if old password is correct
         if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
             return render_template("settings_fail.html", error="Incorrect old password")
 
+
+        # encrypt new password
         hash = pwd_context.hash(request.form.get("new_password"))
 
+        # update password
         db.execute("UPDATE users SET hash=:hash", hash=hash)
 
         return render_template("personal_profile.html")
     else:
         return render_template("settings.html")
 
+
 @app.route("/settings_fail", methods=["GET", "POST"])
 def settings_fail():
 
     if request.method == "POST":
 
+        # check that password and confirmation match
         if request.form.get("new_password") != request.form.get("confirmation"):
             return render_template("settings_fail.html", error="Passowrd and confirmation do not match")
 
         rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
 
+        # check if old password is correct
         if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
             return render_template("settings_fail.html", error="Incorrect old password")
 
+        # encrypt new password
         hash = pwd_context.hash(request.form.get("new_password"))
 
+        # update password
         db.execute("UPDATE users SET hash=:hash", hash=hash)
 
         return render_template("personal_profile.html")
