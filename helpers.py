@@ -110,17 +110,6 @@ def addOrDelete(recepten):
                    id=int(request.form.get("recipeID")), price=1)
 
 
-def loginCheck():
-    # query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-
-    # ensure username exists and password is correct
-    if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-        return apology("invalid username and/or password")
-    return rows
-
-
-
 def registerUser():
     # encrypt password
     myctx = CryptContext(schemes=["sha256_crypt"],
