@@ -196,18 +196,6 @@ def loginCheck():
     return rows
 
 
-def registerCheck():
-    # query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
-
-    # ensure username doesn't already exist
-    if len(rows) == 1:
-        return apology("username already exists")
-
-    # ensure password is the same as passwordcheck
-    if request.form.get("password") != request.form.get("confirmation"):
-        return apology("passwords are not matching")
-
 
 def registerUser():
     # encrypt password
