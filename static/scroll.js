@@ -10,4 +10,7 @@ function Showmore() {
     $("img").slice(17,m).show();
     $("div.tekst").slice(16,n).show();
     $("aside").slice(16,n).show();
+    if (m > 64) {
+        $("div.button").hide();
+    }
 }
