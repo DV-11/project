@@ -257,23 +257,8 @@ def other_profile():
 def settings():
 
     if request.method == "POST":
-        # check that passowrd and confirmation match
-        if request.form.get("new_password") != request.form.get("confirmation"):
-            return render_template("settings_fail.html", error="Passowrd and confirmation do not match")
-
-        rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=request.form.get("user_id"))
-
-        # check if old password is correct
-        if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
-            return render_template("settings_fail.html", error="Incorrect old password")
-
-
-        # encrypt new password
-        hash = pwd_context.hash(request.form.get("new_password"))
-
-        # update password
-        db.execute("UPDATE users SET hash=:hash", hash=hash)
-
+        # Change the password of user
+        changePassword()
         return redirect(url_for("personal_profile"))
     else:
         user_id = session['user_id']
