@@ -193,12 +193,6 @@ def highProtein():
 
 @app.route("/recept", methods=["GET", "POST"])
 def recept():
-    # if returned recipe id is empty after POST, use returned id
-    # if request.args.get('id') is None:
-    #     recipe_id = recipeID
-    # else:
-    #     recipe_id = request.args.get('id')
-
     if request.method == "GET":
         info = db.execute("SELECT * FROM cachen WHERE id = :id", id=request.args.get('id'))
         ingredienten = db.execute("SELECT * FROM ingredients WHERE uri = :uri", uri=info[0]['uri'])
@@ -263,12 +257,11 @@ def other_profile():
 def settings():
 
     if request.method == "POST":
-
         # check that passowrd and confirmation match
         if request.form.get("new_password") != request.form.get("confirmation"):
             return render_template("settings_fail.html", error="Passowrd and confirmation do not match")
 
-        rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session['user_id'])
+        rows = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=request.form.get("user_id"))
 
         # check if old password is correct
         if not pwd_context.verify(request.form.get('old_password'), rows[0]['hash']):
@@ -283,7 +276,8 @@ def settings():
 
         return render_template("personal_profile.html")
     else:
-        return render_template("settings.html")
+        user_id = session['user_id']
+        return render_template("settings.html", user_id=user_id)
 
 
 @app.route("/settings_fail", methods=["GET", "POST"])
