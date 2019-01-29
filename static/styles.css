@@ -15,11 +15,11 @@
   overflow: hidden;
 }
 
-.border{
-    border: 6px solid #ccff66;
-    background-color: #ccff66;
-    text-align: center;
-}
+/*.border{*/
+/*    border: 6px solid #ccff66;*/
+/*    background-color: #ccff66;*/
+/*    text-align: center;*/
+/*}*/
 /*General*/
 
 /*Kleuren:*/
@@ -29,6 +29,11 @@
 
 h1, h2, h3, h4, p{
     font-family: Tahoma, Geneva, sans-serif;
+}
+
+h1{
+    padding-bottom:1%;
+    text-align:center;
 }
 
 a{
@@ -53,7 +58,11 @@ html {
 
 body {
     flex: 1;
-    background-color:#f9fafa;
+    background-image:url("images/Background.jpg");
+     background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+
 }
 
 hr{
@@ -165,6 +174,7 @@ main td
 .col-md-3{
     padding:0;
 }
+
 
 .thumbnail:hover{
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
@@ -494,7 +504,7 @@ footer p{
 }
 
 .tekst{
-    width: 250px;
+    word-wrap: break-word;
     text-align: center;
 }
 
@@ -527,4 +537,22 @@ footer p{
 
 .active, .collapsible:hover {
   background-color: #555;
+}
+
+/*Tablet/mobile css*/
+
+@media (max-width: 992px) {
+
+.row{
+    text-align:center;
+}
+
+.col-md-6{
+    width:100%;
+}
+
+ul{
+    padding-inline-start:0;
+}
+
 }

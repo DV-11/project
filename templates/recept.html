@@ -26,7 +26,10 @@
 
                     </div>
 
-                    <div ass="col-md-6" style="width:50%;float:left">
+                    <div class="col-md-6" >
+                        <div>{{ amount }} users added this recipe to their favorites!</div>
+                        <div>Visit someones profile to see their favorite recipes.</div>
+                    <div ass="col-md-6">
                         <h4><B>{{ amount }} users added this recipe to their favorites!</B></h4>
                         <div><I>Click on a user to visit their profile and see their favorite recipes.</I></div>
                         {% for gebruiker in gebruikers %}
@@ -49,10 +52,14 @@
                 <br><br>
                 <ul>
                     <li class="row">
-                        <p class="col-md-3" style="text-align:left;">
+
+                        <p class="col-md-3">
+                            Calories:
+
+                        <p class="col-md-3">
                             <B>Calories:</B>
                         </p>
-                        <p class="col-md-9" style="text-align:left;">
+                        <p class="col-md-9">
                             {{ info.calories }}
                         </p>
                     </li>
