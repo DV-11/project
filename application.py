@@ -45,10 +45,14 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         # check if username and password are matching
-        rows = loginCheck()
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
-        # remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        # ensure username exists and password is correct
+        if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
+            return render_template("login_fail.html")
+
+        else:
+            session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
         return render_template("index.html")
@@ -56,6 +60,31 @@ def login():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
+
+@app.route("/login_fail", methods=["GET", "POST"])
+def login_fail():
+    """Log user in."""
+
+    # forget any user_id
+    session.clear()
+
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+        # ensure username exists and password is correct
+        if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
+            return render_template("login_fail.html")
+
+        else:
+            session["user_id"] = rows[0]["id"]
+
+        return render_template("index.html")
+
+    # else if user reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("login_fail.html")
 
 
 @app.route("/logout")
