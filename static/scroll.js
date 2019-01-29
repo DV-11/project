@@ -3,6 +3,9 @@ $("div.tekst").slice(16,).hide()
 $("aside").slice(16,).hide()
 var m = 17
 var n = 16
+if (m > 64) {
+        ("button").hide();
+    }
 
 function Showmore() {
     m += 16;
