@@ -1,25 +1,22 @@
-.container
-{
-    text-align: center;
-}
-
-.link{
-    color: blue;
-    text-decoration: underline;
-}
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-}
-
 /*General*/
 
 /*Kleuren:*/
 
 /*Groen: #cccc33*/
 /*Rood: #cc3333*/
+
+html {
+    min-height: 100%;
+    display: flex;
+}
+
+body {
+    flex: 1;
+    background-image:url("images/Background.jpg");
+     background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
 
 h1, h2, h3, h4, p{
     font-family: Tahoma, Geneva, sans-serif;
@@ -45,39 +42,27 @@ ul{
     list-style-type: none;
 }
 
-html {
-    min-height: 100%;
-    display: flex;
-}
 
-body {
-    flex: 1;
-    background-image:url("images/Background.jpg");
-     background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-
-}
 
 hr{
     margin: 10px 0 20px 0;
 }
 
-.sidenav{
-    height: 100%;
-  position: fixed;
-  overflow-x: hidden;
-  padding-top: 20px;
-
+main{
+    margin: 65px 5vw 40px 5vw;
+    background-color: white;
+    min-height:85vh;
+    padding-bottom:10px;
 }
 
-.row{
-    text-align:left;
-
+main img
+{
+    max-width: 100%;
 }
 
-.btn{
-    background-color:transparent;
+main td
+{
+    text-align: left;
 }
 
 main .form-control
@@ -106,24 +91,117 @@ main .form-control
 	margin-bottom: 30px;
 }
 
-main{
-    margin: 65px 5vw 40px 5vw;
-    background-color: white;
-    min-height:85vh;
-    padding-bottom:10px;
+.container
+{
+    text-align: center;
 }
 
-main img
-{
-    /* constrain images on small screens */
-    max-width: 100%;
+.link{
+    color: blue;
+    text-decoration: underline;
 }
 
-main td
-{
-    /* left-align tables' cells */
-    text-align: left;
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
 }
+
+.sidenav{
+    height: 100%;
+  position: fixed;
+  overflow-x: hidden;
+  padding-top: 20px;
+
+}
+
+.row{
+    text-align:left;
+
+}
+
+.btn{
+    background-color:transparent;
+}
+
+.col-md-3{
+    padding:0;
+}
+
+.thumbnail{
+    height:350px;
+}
+
+.thumbnail:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.subbutton
+{
+	position: relative;
+	display: block;
+	padding: 19px 39px 18px 39px;
+	color: #FFF;
+	margin: 0 auto;
+	background: #cccc33;
+	font-size: 18px;
+	text-align: center;
+	font-style: normal;
+	box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+	border:none;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.subbutton:hover{
+	background: #8e8e23;
+}
+
+.tekst{
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.red{
+    background-color: #ff6666;
+}
+
+#scroll-content > div {
+      background: #c0c0c0;
+      height: 200px;
+      margin-bottom: 80px;
+}
+
+#wrapper {
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.collapsible {
+  background-color: lightgrey;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+/*Index*/
+
+.hometitles{
+    margin-top:10px !important;
+}
+
 
 .imagebox {
   background: black;
@@ -140,7 +218,7 @@ main td
 
 .imagebox .imagebox-desc {
   background-color: rgba(0, 0, 0, 0.6);
-  bottom: 0px;
+  top: 0px;
   color: white;
   font-size: 1.2em;
   left: 0px;
@@ -164,17 +242,8 @@ main td
   padding: 0 -5% 0 -5%;
 }
 
-
-.col-md-3{
-    padding:0;
-}
-
-.thumbnail{
-    height:350px;
-}
-
-.thumbnail:hover{
-    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+.homepage_images {
+    display: -webkit-inline-box;
 }
 
 /*Header*/
@@ -259,13 +328,6 @@ header nav{
     align-items: center;
 }
 
-/*.bar_item:hover{*/
-/*    color: white;*/
-/*    -webkit-transition: all 0.2s;*/
-/*    -o-transition: all 0.2s;*/
-/*    -moz-transition: all 0.2s;*/
-/*}*/
-
 .dropdown{
     height:100%;
      position: relative;
@@ -291,8 +353,6 @@ header nav{
     -webkit-transition: all 0.2s;
     -o-transition: all 0.2;
     -moz-transition: all 0.2s;
-
-
 }
 
 .dropdown_content a {
@@ -315,101 +375,13 @@ padding: 0px 16px;
 
 }
 
-.homepage_images {
-    display: -webkit-inline-box;
-}
-
 .dropdown_content a:hover {background-color: #ddd; z-index:1;}
 
 .dropdown:hover .dropdown_content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
-/*Filters*/
-
-.filterform{
-    float:left;
-    width:25%;
-}
-
-input[type=checkbox] + label {
-  display: block;
-  margin: 0.2em;
-  cursor: pointer;
-  padding: 1px 2px;
-}
-
-input[type=checkbox] {
-  display: none;
-}
-
-input[type=checkbox] + label:before {
-  content: "\2714";
-  border: 0.1em solid #000;
-  border-radius: 0.2em;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  padding-left: 0.2em;
-  padding-bottom: 0.3em;
-  margin-right: 0.2em;
-  vertical-align: bottom;
-  color: transparent;
-  transition: .2s;
-}
-
-input[type=checkbox] + label:active:before {
-  transform: scale(0);
-}
-
-input[type=checkbox]:checked + label:before {
-  background-color: MediumSeaGreen;
-  border-color: MediumSeaGreen;
-  color: #fff;
-}
-
-input[type=checkbox]:disabled + label:before {
-  transform: scale(1);
-  border-color: #aaa;
-}
-
-input[type=checkbox]:checked:disabled + label:before {
-  transform: scale(1);
-  background-color: #bfb;
-  border-color: #bfb;
-}
-
-.filter{
-    text-align: left !important;
-}
-
-.subbutton
-{
-	position: relative;
-	display: block;
-	padding: 19px 39px 18px 39px;
-	color: #FFF;
-	margin: 0 auto;
-	background: #cccc33;
-	font-size: 18px;
-	text-align: center;
-	font-style: normal;
-	box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
-	border:none;
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.subbutton:hover{
-	background: #8e8e23;
-}
-
-.form-group{
-    padding-top:inherit;
-}
+/*Account Pages*/
 
 fieldset{
     max-width: 500px;
@@ -420,20 +392,6 @@ fieldset{
 	background: #f4f7f8;
 	border:none;
 	border-radius: 8px;
-}
-
-/*Account Page*/
-
-.profilebox{
-    width:50%;
-    float:left;
-    text-align:center;
-}
-
-.favrecbox{
-    width:50%;
-    float:left;
-    text-align:center;
 }
 
 /*Recipe Page*/
@@ -498,42 +456,6 @@ footer p{
     float: right;
     text-align: right;
     position: relative;
-}
-
-.tekst{
-    word-wrap: break-word;
-    text-align: center;
-}
-
-.red{
-    background-color: #ff6666;
-}
-
-#scroll-content > div {
-      background: #c0c0c0;
-      height: 200px;
-      margin-bottom: 80px;
-}
-
-#wrapper {
-    position: relative;
-    overflow: auto;
-    width: 100%;
-    height: 100%;
-}
-
-.collapsible {
-  background-color: lightgrey;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-}
-
-.active, .collapsible:hover {
-  background-color: #555;
 }
 
 /*Tablet/mobile css*/

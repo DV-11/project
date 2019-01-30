@@ -6,11 +6,11 @@
 
 {% block main %}
 <div class = "container">
-    <div class="profilebox" >
+    <div class="col-md-6" >
         <h1>Profile</h1>
         <p>Username: {{ username }}</p>
     </div>
-    <div class="favrecbox">
+    <div class="col-md-6">
         <h1>Favourite Recipes</h1>
         <p> {{ username }} has {{ ammount }} favourite recipes. </p>
 
@@ -18,7 +18,7 @@
         <div class="col-sm-6">
             <div class="thumbnail">
                 <a href="recept?id={{ info.id }}">
-                    <img src="{{ info['image'] }}" height=220px width=300px alt="image">
+                    <img src="{{ info['image'] }}" style="padding-bottom: 22px" alt="image">
                     <p>{{ info.label }}</p>
                     <p>{{ info.popularity }} &hearts;</p>
                 </a>
