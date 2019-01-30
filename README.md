@@ -4,15 +4,15 @@ Iva Schenk, Joey Huitenga, Justin van der Stoep en David Valero
 
 
 ### Work distribution 
-*Front end:* Joey and Justin
+**Front end:** Joey and Justin
 
 **Back end:** Iva and David
 
 ### Repository content:
-*Static:* CSS and JavaScript files
+**Static:** CSS and JavaScript files
 
-*Templates:* HTML files
+**Templates:** HTML files
 
-*Application.py:* Here is most of the logic code
+**Application.py:** Here is most of the logic code
 
-*Helpers.py:* Additional python functions
+**Helpers.py:** Additional python functions
