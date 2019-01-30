@@ -210,10 +210,7 @@ def recept():
             # select all the user-ids, usernames who had the selected recipe in their favorites
             gebruikers = userInfo()
 
-            # amount of users who added recipe to favorites
-            amount = len(gebruikers)
-
-            return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers[:5], amount=amount)
+            return render_template("recept.html", info=info[0], ingredienten=ingredienten, isFavorite=isFavorite, gebruikers=gebruikers[:5])
         return render_template("recept.html", info=info[0], ingredienten=ingredienten)
 
     # if clicked on favorite button
