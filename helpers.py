@@ -32,11 +32,6 @@ def voorvertoning(categorie):
         dietLabel=categorie)
     return verzameling
 
-# count ammount of likes for a recipe
-def likes(verzameling):
-    aantalLikes = dict()
-    for element in verzameling[0]:
-        print(element)
 
 # bundles favourite recipes for display
 def fav_recipes(u_id):
