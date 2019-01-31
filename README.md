@@ -24,3 +24,6 @@ Iva Schenk, Joey Huitenga, Justin van der Stoep en David Valero
 - De gebruiker kan recepten uit vier verschillende diettypes vinden (low carb, low fat, hight protein en balanced). Gebruikers kunnen recepten als favoriet opslaan op hun persoonlijke pagina. Bij elk recept staan de gebruikers die dit recept hebben opgeslagen in hun favorieten. Het profiel van deze gebruikers met daarop hun favoriete recepten kan worden bezocht. De recepten zijn gerangschikt op populariteit; de meest gefavoriete recepten staan bovenaan.
 - Bij het inloggen en registreren is ervoor gezorgd dat er bij een invalide gebruikersnaam en/of wachtwoord(combinatie) direct een waarschuwing in het scherm komt, met behulp van Javascript.
 - Op de categorie pagina's verschijnt er na een x aantal recepten de knop 'show more', zodat niet meteen alle recepten op de pagina worden geladen.
+
+### Product demo
+https://youtu.be/Fy5iGXgq3cA
