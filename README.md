@@ -26,4 +26,4 @@ Iva Schenk, Joey Huitenga, Justin van der Stoep en David Valero
 - Op de categorie pagina's verschijnt er na een x aantal recepten de knop 'show more', zodat niet meteen alle recepten op de pagina worden geladen.
 
 ### Product demo
-https://youtu.be/Fy5iGXgq3cA
+https://www.youtube.com/watch?v=Fy5iGXgq3cA&feature=youtu.be
